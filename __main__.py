@@ -13,6 +13,7 @@ from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
 from game.player import Player
+from game.wall import Wall
 
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
@@ -26,8 +27,15 @@ def main():
     player = Player()
     cast["players"] = [player]
     
-    
+    cast["walls"] = []
+    for x in range(25):
+        wall = Wall(40 * x, 700)
+        cast["walls"].append(wall)
 
+    wall = Wall(500, 600)
+    cast["walls"].append(wall)
+    wall = Wall(500, 640)
+    cast["walls"].append(wall)
 
     # Create the script {key: tag, value: list}
     script = {}

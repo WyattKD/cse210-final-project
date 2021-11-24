@@ -8,7 +8,10 @@ class MoveActorsAction(Action):
         super().__init__()
 
     def execute(self, cast):
-        pass
+        for group in cast.values():
+            for actor in group:
+                if not actor.get_velocity().is_zero():
+                    self._move_actor(actor)
 
     def _move_actor(self, actor):
         position = actor.get_position()
