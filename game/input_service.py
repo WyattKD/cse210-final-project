@@ -54,6 +54,9 @@ class InputService:
         
         if self.is_down_pressed():
             inputs += "4"
+
+        if self.is_w_released():
+            inputs += " "
         
         return inputs
 
@@ -80,6 +83,9 @@ class InputService:
 
     def is_down_pressed(self):
         return raylibpy.is_key_down(raylibpy.KEY_DOWN)
+    
+    def is_w_released(self):
+        return raylibpy.is_key_up(raylibpy.KEY_W)
 
     def window_should_close(self):
         return raylibpy.window_should_close()

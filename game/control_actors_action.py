@@ -27,15 +27,25 @@ class ControlActorsAction(Action):
             dx = 0
         self._jump_player(player)
         if player.get_is_jumping():
-            dy = -9
+            if dy > 0:
+                dy = 0
+            if dy <= -9:
+                dy = -9
+            else:
+                dy -= constants.JUMP_SPEED
         elif player.get_is_on_ground():
             dy = 0
         else:
-            dy = 9
+            if dy >= 9:
+                dy = 9
+            else:
+                dy += constants.JUMP_SPEED
         player.set_velocity(Point(dx, dy))  
 
     def _jump_player(self, player):
-        if "w" in self._input_service.get_inputs() and player.get_is_on_ground():
+        if " " in self._input_service.get_inputs():
+            player.set_is_jumping(False)
+        elif "w" in self._input_service.get_inputs() and player.get_is_on_ground():
             player.set_is_jumping(True)
             self._jump_time = round(time(), 2)
         elif "w" in self._input_service.get_inputs() and round(time(), 2) - self._jump_time  <= constants.JUMP_TIME:
