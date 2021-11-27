@@ -18,11 +18,14 @@ from game.wall import Wall
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.move_actors_action import MoveActorsAction
+from game.handle_off_screen_action import HandleOffScreenAction
 
 def main():
 
     # create the cast {key: tag, value: list}
     cast = {}
+
+    cast["bullets"] = []
 
     player = Player()
     cast["players"] = [player]
@@ -49,11 +52,11 @@ def main():
     move_actors_action = MoveActorsAction()
     control_actors_action = ControlActorsAction(input_service)
     handle_collisions_action = HandleCollisionsAction(physics_service)
-
+    handle_off_screen_action = HandleOffScreenAction()
 
 
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action, handle_collisions_action]
+    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action]
     script["output"] = [draw_actors_action]
 
 

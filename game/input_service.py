@@ -42,6 +42,18 @@ class InputService:
         
         if self.is_s_pressed():
             inputs += "s"
+
+        if self.is_left_pressed():
+            inputs += "1"
+        
+        if self.is_right_pressed():
+            inputs += "2"
+        
+        if self.is_up_pressed():
+            inputs += "3"
+        
+        if self.is_down_pressed():
+            inputs += "4"
         
         return inputs
 
@@ -56,6 +68,18 @@ class InputService:
 
     def is_s_pressed(self):
         return raylibpy.is_key_down(raylibpy.KEY_S)
+
+    def is_left_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_LEFT)
+
+    def is_right_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_RIGHT)
+
+    def is_up_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_UP)
+
+    def is_down_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_DOWN)
 
     def window_should_close(self):
         return raylibpy.window_should_close()
