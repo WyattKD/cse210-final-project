@@ -4,10 +4,10 @@ from game import constants
 
 class Wall(Actor):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, width, height):
         super().__init__()
-        self.set_width(constants.WALL_WIDTH)
-        self.set_height(constants.WALL_HEIGHT)
+        self.set_width(width)
+        self.set_height(height)
         self.set_position(Point(x, y))
         self.set_color(constants.WALL_COLOR)
     

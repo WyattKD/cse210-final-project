@@ -21,48 +21,28 @@ class HandleCollisionsAction(Action):
             self._handle_player_wall(player, wall)
         player.set_is_on_ground(self._player_on_ground)   
 
-    def is_on_wall(self, player, wall):
-        player_left = player.get_left_edge()
-        player_right = player.get_right_edge()
-        wall_left = wall.get_left_edge()
-        wall_right = wall.get_right_edge()
-        if (player_left < wall_right and player_left > wall_left) or (player_right > wall_left and player_right < wall_right):
-            return True
-        else:
-            return False
-
-    def is_next_to_wall(self, player, wall):
-        player_top = player.get_top_edge()
-        player_bottom = player.get_bottom_edge()
-        wall_top = wall.get_top_edge()
-        wall_bottom = wall.get_bottom_edge()
-        if (player_top < wall_bottom and player_top > wall_top) or (player_bottom > wall_bottom and player_bottom < wall_top):
-            return True
-        else:
-            return False
-
     def _handle_player_wall(self, player, wall):
+            x, y, px, py = self._update_player_position(player)
+            wx = int(wall.get_position().get_x() + wall.get_width()/2)
+            wy = int(wall.get_position().get_y() + wall.get_height()/2)
 
-            x = player.get_position().get_x()
+            if self._physics_service.is_collision(player, wall):
+                if player.get_right_edge() in range(wall.get_left_edge(), wall.get_left_edge() + 10 + 1) and py in range(int(wall.get_top_edge() - constants.PLAYER_HEIGHT/2 + 1), int(wall.get_bottom_edge() + constants.PLAYER_HEIGHT/2)):
+                    player.set_position(Point(wall.get_left_edge() - constants.PLAYER_WIDTH, y))
+                elif player.get_left_edge() in range(wall.get_right_edge() - 10, wall.get_right_edge() + 1) and py in range(int(wall.get_top_edge() - constants.PLAYER_HEIGHT/2 + 1), int(wall.get_bottom_edge() + constants.PLAYER_HEIGHT/2)):
+                    player.set_position(Point(wall.get_right_edge(), y))
+                elif player.get_top_edge() in range(wall.get_bottom_edge() - 10, wall.get_bottom_edge() + 1) and px in range(int(wall.get_left_edge() - constants.PLAYER_WIDTH/2 + 1), int(wall.get_right_edge() + constants.PLAYER_WIDTH/2)):
+                    player.set_position(Point(x, wall.get_bottom_edge()))
+                elif player.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 11) and px in range(int(wall.get_left_edge() - constants.PLAYER_WIDTH/2 + 1), int(wall.get_right_edge() + constants.PLAYER_WIDTH/2)):
+                    player.set_position(Point(x, wall.get_top_edge() - constants.PLAYER_HEIGHT))
+                    self._player_on_ground = True
 
-            y = player.get_position().get_y()
-
-            if (player.get_right_edge() >= wall.get_left_edge() and player.get_right_edge() <= wall.get_right_edge()) and self.is_next_to_wall(player, wall):
-                
-                player.set_position(Point(wall.get_left_edge() - player.get_width(), y))
-
-            if (player.get_left_edge() <= wall.get_right_edge() and player.get_left_edge() >= wall.get_left_edge()) and self.is_next_to_wall(player, wall):
-                
-                player.set_position(Point(wall.get_right_edge(), y))
-
-            if (player.get_bottom_edge() >= wall.get_top_edge() and player.get_bottom_edge() <= wall.get_bottom_edge()) and self.is_on_wall(player, wall):
-                
-                player.set_position(Point(x, wall.get_top_edge() - player.get_height()))
-                self._player_on_ground = True
-
-            if (player.get_top_edge() <= wall.get_bottom_edge() and player.get_top_edge() >= wall.get_top_edge()) and self.is_on_wall(player, wall):
-
-                player.set_position(Point(x, wall.get_bottom_edge()))
+    def _update_player_position(self, player):
+        x = player.get_position().get_x()
+        y = player.get_position().get_y()
+        px = int(x + constants.PLAYER_WIDTH/2)
+        py = int(y + constants.PLAYER_HEIGHT/2)
+        return x, y, px ,py
 
     def _handle_bullet_wall(self, cast):
         bullets_to_remove = []

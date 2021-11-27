@@ -1,6 +1,6 @@
 import os
 os.environ['RAYLIB_BIN_PATH'] = '.'
-
+import raylibpy
 import random
 from game import constants
 from game.director import Director
@@ -31,14 +31,12 @@ def main():
     cast["players"] = [player]
     
     cast["walls"] = []
-    for x in range(25):
-        wall = Wall(40 * x, 700)
-        cast["walls"].append(wall)
+    wall = Wall(0, 720, 1000, 40)
+    cast["walls"].append(wall)
 
-    wall = Wall(500, 600)
+    wall = Wall(500, 620, 40, 80)
     cast["walls"].append(wall)
-    wall = Wall(500, 640)
-    cast["walls"].append(wall)
+    
 
     # Create the script {key: tag, value: list}
     script = {}
@@ -69,6 +67,7 @@ def main():
     director.start_game()
 
     audio_service.stop_audio()
+
 
 if __name__ == "__main__":
     main()
