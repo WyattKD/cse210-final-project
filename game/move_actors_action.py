@@ -10,7 +10,7 @@ class MoveActorsAction(Action):
     def execute(self, cast):
         for group in cast.values():
             for actor in group:
-                if not actor.get_velocity().is_zero():
+                if not actor.get_velocity().is_zero() or actor.has_gravity():
                     self._move_actor(actor)
 
     def _move_actor(self, actor):
@@ -21,6 +21,14 @@ class MoveActorsAction(Action):
         y = position.get_y()
         dx = velocity.get_x()
         dy = velocity.get_y()
+
+
+        if actor.has_gravity(): 
+            if dy >= 9:
+                dy = 9
+            else:
+                dy += constants.GRAVITY
+                actor.set_velocity(Point(dx, dy))
 
         x = (x + dx) % constants.MAX_X
         y = (y + dy) % constants.MAX_Y

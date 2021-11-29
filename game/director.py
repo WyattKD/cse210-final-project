@@ -1,5 +1,3 @@
-from time import sleep
-
 import raylibpy
 from game import constants
 

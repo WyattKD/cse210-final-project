@@ -14,11 +14,13 @@ from game.audio_service import AudioService
 
 from game.player import Player
 from game.wall import Wall
+from game.enemy import Enemy
 
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.move_actors_action import MoveActorsAction
 from game.handle_off_screen_action import HandleOffScreenAction
+from game.handle_entity_hp import HandleEntityHP
 
 def main():
 
@@ -36,6 +38,10 @@ def main():
 
     wall = Wall(500, 620, 40, 80)
     cast["walls"].append(wall)
+
+    cast["enemies"] = []
+    enemy1 = Enemy(50,50)
+    cast["enemies"].append(enemy1)
     
 
     # Create the script {key: tag, value: list}
@@ -51,10 +57,11 @@ def main():
     control_actors_action = ControlActorsAction(input_service)
     handle_collisions_action = HandleCollisionsAction(physics_service)
     handle_off_screen_action = HandleOffScreenAction()
+    handle_entity_hp = HandleEntityHP()
 
 
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action]
+    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp]
     script["output"] = [draw_actors_action]
 
 

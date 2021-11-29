@@ -10,39 +10,42 @@ class ControlActorsAction(Action):
         self._input_service = input_service
         self._jump_time = round(time(), 2)
         self._shoot_time = round(time(), 2)
+        
 
     def execute(self, cast):
-        self._move_player(cast)
-        self._shoot_player(cast)
+        self._player_move(cast)
+        self._player_shoot(cast)
 
-    def _move_player(self, cast):
+    def _player_move(self, cast):
         player = cast["players"][0] 
         dx = player.get_velocity().get_x()
         dy = player.get_velocity().get_y()
-        if "a" in self._input_service.get_inputs():
-            dx = -1 * constants.PLAYER_SPEED
-        elif "d" in self._input_service.get_inputs():
-            dx = 1 * constants.PLAYER_SPEED
-        else:
-            dx = 0
-        self._jump_player(player)
-        if player.get_is_jumping():
-            if dy > 0:
+        if not player.get_is_dead():
+            if "a" in self._input_service.get_inputs():
+                dx = -1 * constants.PLAYER_SPEED
+            elif "d" in self._input_service.get_inputs():
+                dx = 1 * constants.PLAYER_SPEED
+            else:
+                dx = 0
+            self._player_jump(player)
+            if player.get_is_jumping():
+                player.set_gravity(False)
+                if dy > 0:
+                    dy = 0
+                if dy <= -9:
+                    dy = -9
+                else:
+                    dy -= constants.JUMP_SPEED
+            elif player.get_is_on_ground():
+                player.set_gravity(False)
                 dy = 0
-            if dy <= -9:
-                dy = -9
             else:
-                dy -= constants.JUMP_SPEED
-        elif player.get_is_on_ground():
-            dy = 0
+                player.set_gravity(True)
+            player.set_velocity(Point(dx, dy))  
         else:
-            if dy >= 9:
-                dy = 9
-            else:
-                dy += constants.JUMP_SPEED
-        player.set_velocity(Point(dx, dy))  
+            player.set_velocity(Point(0, 0))
 
-    def _jump_player(self, player):
+    def _player_jump(self, player):
         if " " in self._input_service.get_inputs():
             player.set_is_jumping(False)
         elif "w" in self._input_service.get_inputs() and player.get_is_on_ground():
@@ -53,7 +56,7 @@ class ControlActorsAction(Action):
         else:
             player.set_is_jumping(False)
 
-    def _shoot_player(self, cast):
+    def _player_shoot(self, cast):
         if round(time(), 2) - self._shoot_time >= constants.SHOOT_TIME:
             bullets = cast["bullets"]
             player = cast["players"][0]

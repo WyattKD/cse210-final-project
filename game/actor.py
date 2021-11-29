@@ -30,6 +30,20 @@ class Actor:
         self._height = 0
         self._image = ""
         self._color = ""
+        self._has_gravity = False
+        self._is_on_ground = False
+
+    def has_gravity(self):
+        return self._has_gravity
+
+    def set_gravity(self, status):
+        self._has_gravity = status
+
+    def get_is_on_ground(self):
+        return self._is_on_ground
+
+    def set_is_on_ground(self, status):
+        self._is_on_ground = status
 
     def get_width(self):
         return self._width

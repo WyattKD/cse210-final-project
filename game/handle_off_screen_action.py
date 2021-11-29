@@ -8,9 +8,9 @@ class HandleOffScreenAction(Action):
         super().__init__()
 
     def execute(self, cast):
-        self.handle_bullet_offscreen(cast)
+        self._handle_bullet_offscreen(cast)
 
-    def handle_bullet_offscreen(self, cast):
+    def _handle_bullet_offscreen(self, cast):
         for bullet in cast["bullets"]:
             x = bullet.get_position().get_x()
             y = bullet.get_position().get_y()
