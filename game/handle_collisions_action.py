@@ -8,6 +8,7 @@ class HandleCollisionsAction(Action):
         super().__init__()
         self._physics_service = physics_service
         self._player_on_ground = False
+        self._enemy_on_wall = False
 
 
     def execute(self, cast):
@@ -20,9 +21,12 @@ class HandleCollisionsAction(Action):
     def _handle_enemy_wall(self, cast):
         enemies = cast["enemies"]
         walls = cast["walls"]
-        for wall in walls:
-            for enemy in enemies:
+        
+        for enemy in enemies:
+            self._enemy_on_wall = False
+            for wall in walls:
                 self._handle_entity_wall(enemy, wall)
+                enemy.set_is_on_wall(self._enemy_on_wall) 
 
     def _handle_player_ground(self, cast):
         player = cast["players"][0]
@@ -41,8 +45,10 @@ class HandleCollisionsAction(Action):
             if self._physics_service.is_collision(entity, wall):
                 if entity.get_right_edge() in range(wall.get_left_edge(), wall.get_left_edge() + 10 + 1) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
                     entity.set_position(Point(wall.get_left_edge() - entity.get_width(), y))
+                    self._enemy_on_wall = True
                 elif entity.get_left_edge() in range(wall.get_right_edge() - 10, wall.get_right_edge() + 1) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
                     entity.set_position(Point(wall.get_right_edge(), y))
+                    self._enemy_on_wall = True
                 elif entity.get_top_edge() in range(wall.get_bottom_edge() - 10, wall.get_bottom_edge() + 1) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
                     entity.set_position(Point(x, wall.get_bottom_edge()))
                 elif entity.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 11) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
