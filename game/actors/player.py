@@ -1,4 +1,4 @@
-from game.actor import Actor
+from game.actors.actor import Actor
 from game.point import Point
 from game import constants
 from time import *
@@ -49,6 +49,7 @@ class Player(Actor):
     def determine_damage_status(self):
         if self.get_hp() <= 0:
             self.set_color(constants.PLAYER_DEAD_COLOR)
+            self.set_gravity(True)
             self.set_is_dead(True)
         elif round(time(), 2) - self._damage_time  >= constants.INVINCIBLE_TIME:
             self.set_color(constants.PLAYER_COLOR)

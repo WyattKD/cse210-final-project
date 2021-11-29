@@ -4,25 +4,25 @@ import raylibpy
 import random
 from game import constants
 from game.director import Director
-from game.actor import Actor
+from game.actors.actor import Actor
 from game.point import Point
-from game.draw_actors_action import DrawActorsAction
-from game.input_service import InputService
-from game.output_service import OutputService
-from game.physics_service import PhysicsService
-from game.audio_service import AudioService
+from game.actions.draw_actors_action import DrawActorsAction
+from game.services.input_service import InputService
+from game.services.output_service import OutputService
+from game.services.physics_service import PhysicsService
+from game.services.audio_service import AudioService
 
-from game.player import Player
-from game.wall import Wall
-from game.enemy import Enemy
-from game.walker_enemy import Walker
+from game.actors.player import Player
+from game.actors.wall import Wall
+from game.actors.enemies.enemy import Enemy
+from game.actors.enemies.walker_enemy import Walker
 
-from game.control_actors_action import ControlActorsAction
-from game.handle_collisions_action import HandleCollisionsAction
-from game.move_actors_action import MoveActorsAction
-from game.handle_off_screen_action import HandleOffScreenAction
-from game.handle_entity_hp import HandleEntityHP
-from game.handle_enemy_movement import HandleEnemyMovement
+from game.actions.control_actors_action import ControlActorsAction
+from game.actions.handle_collisions_action import HandleCollisionsAction
+from game.actions.move_actors_action import MoveActorsAction
+from game.actions.handle_off_screen_action import HandleOffScreenAction
+from game.actions.handle_entity_hp import HandleEntityHP
+from game.actions.handle_enemy_movement import HandleEnemyMovement
 
 def main():
 

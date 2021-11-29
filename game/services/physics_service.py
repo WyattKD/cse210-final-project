@@ -1,4 +1,4 @@
-from game.actor import Actor
+from game.actors.actor import Actor
 import raylibpy
 
 class PhysicsService:

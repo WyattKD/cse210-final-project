@@ -1,8 +1,9 @@
 from game import constants
-from game.action import Action
+from game.actions.action import Action
 from game.point import Point
+from game.actors.bullet import Bullet
 from time import time
-from game.bullet import Bullet
+
 class ControlActorsAction(Action):
 
     def __init__(self, input_service):

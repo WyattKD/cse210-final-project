@@ -1,4 +1,4 @@
-from game.enemy import Enemy
+from game.actors.enemies.enemy import Enemy
 from game.point import Point
 from game import constants
 from time import time
