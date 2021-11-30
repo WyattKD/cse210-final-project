@@ -14,6 +14,7 @@ from game.services.audio_service import AudioService
 
 from game.actors.player import Player
 from game.actors.wall import Wall
+from game.actors.platform import Platform
 from game.actors.enemies.enemy import Enemy
 from game.actors.enemies.walker_enemy import Walker
 
@@ -37,9 +38,14 @@ def main():
     cast["walls"] = []
     wall = Wall(0, 720, 1000, 40)
     cast["walls"].append(wall)
-
     wall = Wall(500, 620, 40, 80)
     cast["walls"].append(wall)
+
+    cast["platforms"] = []
+    platform1 = Platform(240, 560, 120, 20)
+    cast["platforms"].append(platform1)
+    platform2 = Platform(660, 560, 120, 20)
+    cast["platforms"].append(platform2)
 
     cast["enemies"] = []
     enemy1 = Walker(50,50)

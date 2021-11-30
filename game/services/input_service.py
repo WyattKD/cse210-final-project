@@ -17,8 +17,7 @@ class InputService:
         Args:
             self (InputService): An instance of InputService.
         """
-        pass
-        
+
     def get_inputs(self):
         """Gets the selected direction based on the currently pressed keys.
 
@@ -57,7 +56,7 @@ class InputService:
 
         if self.is_w_released():
             inputs += " "
-        
+
         return inputs
 
     def is_a_pressed(self):

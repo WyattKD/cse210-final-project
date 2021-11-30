@@ -22,6 +22,10 @@ class ControlActorsAction(Action):
         dx = player.get_velocity().get_x()
         dy = player.get_velocity().get_y()
         if not player.get_is_dead():
+            if "s" in self._input_service.get_inputs():
+                player.set_is_crouched(True)
+            else:
+                player.set_is_crouched(False)
             if "a" in self._input_service.get_inputs():
                 dx = -1 * constants.PLAYER_SPEED
             elif "d" in self._input_service.get_inputs():
@@ -47,12 +51,10 @@ class ControlActorsAction(Action):
             player.set_velocity(Point(0, 0))
 
     def _player_jump(self, player):
-        if " " in self._input_service.get_inputs():
-            player.set_is_jumping(False)
-        elif "w" in self._input_service.get_inputs() and player.get_is_on_ground():
+        if "w" in self._input_service.get_inputs() and player.get_is_on_ground():
             player.set_is_jumping(True)
             self._jump_time = round(time(), 2)
-        elif "w" in self._input_service.get_inputs() and round(time(), 2) - self._jump_time  <= constants.JUMP_TIME:
+        if "w" in self._input_service.get_inputs() and round(time(), 2) - self._jump_time  <= constants.JUMP_TIME:
             player.set_is_jumping(True)
         else:
             player.set_is_jumping(False)

@@ -16,6 +16,13 @@ class Player(Actor):
         self._hp = 3
         self._damage_time = 0
         self._is_dead = False
+        self._is_crouched = False
+
+    def set_is_crouched(self, status):
+        self._is_crouched = status
+
+    def get_is_crouched(self):
+        return self._is_crouched
 
     def set_is_dead(self, status):
         self._is_dead = status

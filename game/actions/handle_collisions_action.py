@@ -12,11 +12,13 @@ class HandleCollisionsAction(Action):
 
 
     def execute(self, cast):
-        self._handle_player_ground(cast)
         self._handle_bullet_wall(cast)
         self._handle_enemy_wall(cast)
         self._handle_bullet_enemy(cast)
         self._handle_enemy_player(cast)
+        self._player_on_ground = False
+        self._handle_platforms(cast)
+        self._handle_player_ground(cast)
 
     def _handle_enemy_wall(self, cast):
         enemies = cast["enemies"]
@@ -31,10 +33,20 @@ class HandleCollisionsAction(Action):
     def _handle_player_ground(self, cast):
         player = cast["players"][0]
         walls = cast["walls"]
-        self._player_on_ground = False 
         for wall in walls:
            self._handle_entity_wall(player, wall)
         player.set_is_on_ground(self._player_on_ground)   
+
+    def _handle_platforms(self, cast):
+        player = cast["players"][0]
+        enemies = cast["enemies"]
+        platforms = cast["platforms"]
+        for platform in platforms:
+            self._handle_entity_platform(player, platform)
+        player.set_is_on_ground(self._player_on_ground)  
+        for enemy in enemies:
+            for platform in platforms:
+                self._handle_entity_platform(enemy, platform)
 
 
     def _handle_entity_wall(self, entity, wall):
@@ -53,7 +65,8 @@ class HandleCollisionsAction(Action):
                     entity.set_position(Point(x, wall.get_bottom_edge()))
                 elif entity.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 11) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
                     entity.set_position(Point(x, wall.get_top_edge() - entity.get_height()))
-                    self._player_on_ground = True
+                    if entity.get_color() == constants.PLAYER_COLOR:
+                        self._player_on_ground = True
 
 
     def _update_entity_position(self, entity):
@@ -90,3 +103,14 @@ class HandleCollisionsAction(Action):
         for enemy in enemies:
             if self._physics_service.is_collision(player, enemy):
                 player.take_damage()
+
+    def _handle_entity_platform(self, entity, platform):
+            x, y, px, py = self._update_entity_position(entity)
+            wx = int(platform.get_position().get_x() + platform.get_width()/2)
+            wy = int(platform.get_position().get_y() + platform.get_height()/2)
+
+            if self._physics_service.is_collision(entity, platform) and not entity.get_is_crouched():
+                if entity.get_bottom_edge() in range(platform.get_top_edge(), platform.get_top_edge() + 11) and px in range(int(platform.get_left_edge() - entity.get_width()/2 + 1), int(platform.get_right_edge() + entity.get_width()/2)):
+                    entity.set_position(Point(x, platform.get_top_edge() - entity.get_height()))
+                    if entity.get_color() == constants.PLAYER_COLOR and entity.get_velocity().get_y() >= 0:
+                        self._player_on_ground = True

@@ -13,6 +13,13 @@ class Enemy(Actor):
         self.set_gravity(True)
         self._hp = 3
         self._is_on_wall = False
+        self._is_crouched = False
+
+    def set_is_crouched(self, status):
+        self._is_crouched = status
+
+    def get_is_crouched(self):
+        return self._is_crouched
         
     def set_hp(self, amount):
         self._hp = amount
