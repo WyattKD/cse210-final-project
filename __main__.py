@@ -26,6 +26,7 @@ from game.actions.move_actors_action import MoveActorsAction
 from game.actions.handle_off_screen_action import HandleOffScreenAction
 from game.actions.handle_entity_hp import HandleEntityHP
 from game.actions.handle_enemy_movement import HandleEnemyMovement
+from game.actions.handle_bullet_timeout_action import HandleBulletTimeoutAction
 
 def main():
 
@@ -79,10 +80,11 @@ def main():
     handle_off_screen_action = HandleOffScreenAction()
     handle_entity_hp = HandleEntityHP()
     handle_enemy_movement = HandleEnemyMovement()
+    handle_bullet_timeout_action = HandleBulletTimeoutAction()
 
 
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement]
+    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action]
     script["output"] = [draw_actors_action]
 
 

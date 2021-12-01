@@ -1,6 +1,7 @@
 from game.actors.actor import Actor
 from game.point import Point
 from game import constants
+from time import time
 
 class Bullet(Actor):
 
@@ -10,6 +11,7 @@ class Bullet(Actor):
         self.set_height(constants.BULLET_HEIGHT)
         self.set_color(constants.BULLET_COLOR)
         self.set_position(Point(x - constants.BULLET_WIDTH/2, y - constants.BULLET_HEIGHT/2))
+        self._spawn_time = round(time(), 2)
         if direction == "left":
             self.set_velocity(Point(-1 * constants.BULLET_SPEED, 0))
         elif direction == "right":
@@ -26,3 +28,6 @@ class Bullet(Actor):
             self.set_velocity(Point(-1 * constants.BULLET_SPEED/2, constants.BULLET_SPEED/2))
         elif direction == "rightdown":
             self.set_velocity(Point(constants.BULLET_SPEED/2, constants.BULLET_SPEED/2))
+
+    def get_spawn_time(self):
+        return self._spawn_time
