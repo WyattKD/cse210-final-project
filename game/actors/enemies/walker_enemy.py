@@ -2,7 +2,6 @@ from game.actors.enemies.enemy import Enemy
 from game.point import Point
 from game import constants
 from time import time
-from math import copysign
 
 class Walker(Enemy):
 
@@ -33,7 +32,6 @@ class Walker(Enemy):
             self._cooldown_time = round(time(), 2)
             self._jump_time = round(time(), 2)
             self._is_jumping = True
-            print(walker_y - player_y)
         elif self.get_is_on_wall() and round(time(), 2) - self._cooldown_time  >= constants.WALKER_JUMP_TIME and player_x - walker_x not in range(-7, 8):
             self._cooldown_time = round(time(), 2)
             self._jump_time = round(time(), 2)

@@ -65,7 +65,7 @@ class HandleCollisionsAction(Action):
                     entity.set_position(Point(x, wall.get_bottom_edge()))
                 elif entity.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 11) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
                     entity.set_position(Point(x, wall.get_top_edge() - entity.get_height()))
-                    if entity.get_color() == constants.PLAYER_COLOR:
+                    if entity.get_color() == constants.PLAYER_COLOR or entity.get_color() == constants.PLAYER_INV_COLOR:
                         self._player_on_ground = True
 
 
@@ -112,5 +112,5 @@ class HandleCollisionsAction(Action):
             if self._physics_service.is_collision(entity, platform) and not entity.get_is_crouched():
                 if entity.get_bottom_edge() in range(platform.get_top_edge(), platform.get_top_edge() + 11) and px in range(int(platform.get_left_edge() - entity.get_width()/2 + 1), int(platform.get_right_edge() + entity.get_width()/2)):
                     entity.set_position(Point(x, platform.get_top_edge() - entity.get_height()))
-                    if entity.get_color() == constants.PLAYER_COLOR and entity.get_velocity().get_y() >= 0:
+                    if (entity.get_color() == constants.PLAYER_COLOR or entity.get_color() == constants.PLAYER_INV_COLOR) and entity.get_velocity().get_y() >= 0:
                         self._player_on_ground = True

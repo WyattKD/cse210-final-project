@@ -17,6 +17,8 @@ from game.actors.wall import Wall
 from game.actors.platform import Platform
 from game.actors.enemies.enemy import Enemy
 from game.actors.enemies.walker_enemy import Walker
+from game.actors.enemies.flyer_enemy import Flyer
+from game.actors.enemies.mover_enemy import Mover
 
 from game.actions.control_actors_action import ControlActorsAction
 from game.actions.handle_collisions_action import HandleCollisionsAction
@@ -48,11 +50,19 @@ def main():
     cast["platforms"].append(platform2)
 
     cast["enemies"] = []
-    enemy1 = Walker(50,50)
+    enemy1 = Walker(50,600)
     cast["enemies"].append(enemy1)
-    enemy2 = Walker(100,40)
+    enemy2 = Walker(100,600)
     cast["enemies"].append(enemy2)
-    
+
+    enemy3 = Flyer(50,50)
+    cast["enemies"].append(enemy3)
+    enemy4 = Flyer(950,50)
+    cast["enemies"].append(enemy4)
+
+    path = [Point(475,100), Point(275, 300), Point(475,500), Point(675, 300)]
+    enemy5 = Mover(475,99, path, True)
+    cast["enemies"].append(enemy5)
 
     # Create the script {key: tag, value: list}
     script = {}
