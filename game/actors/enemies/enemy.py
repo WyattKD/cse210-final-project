@@ -33,8 +33,8 @@ class Enemy(Actor):
     def get_is_on_wall(self):
         return self._is_on_wall
 
-    def take_damage(self):
-        self.set_hp(self.get_hp() - 1)
+    def take_damage(self, damage):
+        self.set_hp(self.get_hp() - damage)
 
     def move(self, player):
         raise NotImplementedError("execute not implemented in superclass")

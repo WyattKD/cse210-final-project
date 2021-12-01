@@ -3,6 +3,7 @@ from game.actions.action import Action
 from game.point import Point
 from game.actors.bullet import Bullet
 from time import time
+from random import randint
 
 class ControlActorsAction(Action):
 
@@ -60,32 +61,44 @@ class ControlActorsAction(Action):
             player.set_is_jumping(False)
 
     def _player_shoot(self, cast):
-        if round(time(), 2) - self._shoot_time >= constants.SHOOT_TIME:
+        gun = cast["guns"][0]
+        stats = gun.get_gun_stats()
+        time_between_shots = stats[4]
+        num_bullets = stats[5]
+        if round(time(), 2) - self._shoot_time >= time_between_shots:
             bullets = cast["bullets"]
             player = cast["players"][0]
             x = player.get_position().get_x()
             y = player.get_position().get_y()
             if "13" in self._input_service.get_inputs():
-                bullets.append(Bullet("leftup", x, y))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("leftup", x, y, stats))
                 self._shoot_time = round(time(), 2)
             elif "14" in self._input_service.get_inputs():
-                bullets.append(Bullet("leftdown", x, y + constants.PLAYER_HEIGHT))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("leftdown", x, y + constants.PLAYER_HEIGHT, stats))
                 self._shoot_time = round(time(), 2)
             elif "23" in self._input_service.get_inputs():
-                bullets.append(Bullet("rightup", x + constants.PLAYER_WIDTH, y))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("rightup", x + constants.PLAYER_WIDTH, y, stats))
                 self._shoot_time = round(time(), 2)
             elif "24" in self._input_service.get_inputs():
-                bullets.append(Bullet("rightdown", x + constants.PLAYER_WIDTH, y + constants.PLAYER_HEIGHT))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("rightdown", x + constants.PLAYER_WIDTH, y + constants.PLAYER_HEIGHT, stats))
                 self._shoot_time = round(time(), 2)
             elif "1" in self._input_service.get_inputs():
-                bullets.append(Bullet("left", x, y + constants.PLAYER_HEIGHT/2))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("left", x, y + constants.PLAYER_HEIGHT/2, stats))
                 self._shoot_time = round(time(), 2)
             elif "2" in self._input_service.get_inputs():
-                bullets.append(Bullet("right", x + constants.PLAYER_WIDTH, y + constants.PLAYER_HEIGHT/2))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("right", x + constants.PLAYER_WIDTH, y + constants.PLAYER_HEIGHT/2, stats))
                 self._shoot_time = round(time(), 2)
             elif "3" in self._input_service.get_inputs():
-                bullets.append(Bullet("up", x + constants.PLAYER_WIDTH/2, y))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("up", x + constants.PLAYER_WIDTH/2, y, stats))
                 self._shoot_time = round(time(), 2)
             elif "4" in self._input_service.get_inputs():
-                bullets.append(Bullet("down", x + constants.PLAYER_WIDTH/2, y + constants.PLAYER_HEIGHT))
+                for shots in range(num_bullets):
+                    bullets.append(Bullet("down", x + constants.PLAYER_WIDTH/2, y + constants.PLAYER_HEIGHT, stats))
                 self._shoot_time = round(time(), 2)

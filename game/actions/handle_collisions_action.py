@@ -87,11 +87,14 @@ class HandleCollisionsAction(Action):
                 cast["bullets"].remove(bullet)
 
     def _handle_bullet_enemy(self, cast):
+        gun = cast["guns"][0]
+        stats = gun.get_gun_stats()
+        damage = stats[8]
         bullets_to_remove = []
         for bullet in cast["bullets"]:
             for enemy in cast ["enemies"]:
                 if self._physics_service.is_collision(bullet, enemy):
-                    enemy.take_damage()
+                    enemy.take_damage(damage)
                     bullets_to_remove.append(bullet)
         for bullet in bullets_to_remove:
             if bullet in cast["bullets"]:

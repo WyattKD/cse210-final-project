@@ -2,32 +2,46 @@ from game.actors.actor import Actor
 from game.point import Point
 from game import constants
 from time import time
-
+from random import uniform
+from math import sqrt
 class Bullet(Actor):
 
-    def __init__(self, direction, x, y):
+    def __init__(self, direction, x, y, stats):
         super().__init__()
-        self.set_width(constants.BULLET_WIDTH)
-        self.set_height(constants.BULLET_HEIGHT)
-        self.set_color(constants.BULLET_COLOR)
-        self.set_position(Point(x - constants.BULLET_WIDTH/2, y - constants.BULLET_HEIGHT/2))
-        self._spawn_time = round(time(), 2)
+        bullet_width = stats[0]
+        bullet_height = stats[1]
+        bullet_color = stats[2]
+        bullet_speed = stats[3]
+        bullet_spread = stats[6]
+        self.set_width(bullet_width)
+        self.set_height(bullet_height)
+        self.set_color(bullet_color)
+        self.set_position(Point(x - bullet_width/2, y - bullet_height/2))
+        self._spawn_point = self.get_position() 
         if direction == "left":
-            self.set_velocity(Point(-1 * constants.BULLET_SPEED, 0))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(-1 * bullet_speed, spread))
         elif direction == "right":
-            self.set_velocity(Point(constants.BULLET_SPEED, 0))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(bullet_speed, spread))
         elif direction == "up":
-            self.set_velocity(Point(0, -1 * constants.BULLET_SPEED))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(spread, -1 * bullet_speed))
         elif direction == "down":
-            self.set_velocity(Point(0, constants.BULLET_SPEED))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(spread, bullet_speed))
         elif direction == "leftup":
-            self.set_velocity(Point(-1 * constants.BULLET_SPEED/2, -1 * constants.BULLET_SPEED/2))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(-1 * bullet_speed/2 - spread, -1 * bullet_speed/2 + spread))
         elif direction == "rightup":
-            self.set_velocity(Point(constants.BULLET_SPEED/2, -1 * constants.BULLET_SPEED/2))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(bullet_speed/2 + spread, -1 * bullet_speed/2 + spread))
         elif direction == "leftdown":
-            self.set_velocity(Point(-1 * constants.BULLET_SPEED/2, constants.BULLET_SPEED/2))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(-1 * bullet_speed/2 + spread, bullet_speed/2 + spread))
         elif direction == "rightdown":
-            self.set_velocity(Point(constants.BULLET_SPEED/2, constants.BULLET_SPEED/2))
+            spread = uniform(-1 * bullet_spread, bullet_spread)
+            self.set_velocity(Point(bullet_speed/2 - spread, bullet_speed/2 + spread))
 
-    def get_spawn_time(self):
-        return self._spawn_time
+    def get_spawn_point(self):
+        return self._spawn_point

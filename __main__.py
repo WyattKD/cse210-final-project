@@ -13,6 +13,7 @@ from game.services.physics_service import PhysicsService
 from game.services.audio_service import AudioService
 
 from game.actors.player import Player
+from game.actors.gun import Gun
 from game.actors.wall import Wall
 from game.actors.platform import Platform
 from game.actors.enemies.enemy import Enemy
@@ -37,6 +38,9 @@ def main():
 
     player = Player()
     cast["players"] = [player]
+
+    gun = Gun()
+    cast["guns"] = [gun]
     
     cast["walls"] = []
     wall = Wall(0, 720, 1000, 40)
@@ -51,6 +55,7 @@ def main():
     cast["platforms"].append(platform2)
 
     cast["enemies"] = []
+    
     enemy1 = Walker(50,600)
     cast["enemies"].append(enemy1)
     enemy2 = Walker(100,600)
@@ -64,7 +69,7 @@ def main():
     path = [Point(475,100), Point(275, 300), Point(475,500), Point(675, 300)]
     enemy5 = Mover(475,99, path, True)
     cast["enemies"].append(enemy5)
-
+    
     # Create the script {key: tag, value: list}
     script = {}
 
