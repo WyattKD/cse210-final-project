@@ -31,17 +31,24 @@ class Bullet(Actor):
             spread = uniform(-1 * bullet_spread, bullet_spread)
             self.set_velocity(Point(spread, bullet_speed))
         elif direction == "leftup":
-            spread = uniform(-1 * bullet_spread, bullet_spread)
+            spread = uniform(-1 * bullet_spread, bullet_spread)/2
             self.set_velocity(Point(-1 * bullet_speed/2 - spread, -1 * bullet_speed/2 + spread))
         elif direction == "rightup":
-            spread = uniform(-1 * bullet_spread, bullet_spread)
+            spread = uniform(-1 * bullet_spread, bullet_spread)/2
             self.set_velocity(Point(bullet_speed/2 + spread, -1 * bullet_speed/2 + spread))
         elif direction == "leftdown":
-            spread = uniform(-1 * bullet_spread, bullet_spread)
+            spread = uniform(-1 * bullet_spread, bullet_spread)/2
             self.set_velocity(Point(-1 * bullet_speed/2 + spread, bullet_speed/2 + spread))
         elif direction == "rightdown":
-            spread = uniform(-1 * bullet_spread, bullet_spread)
+            spread = uniform(-1 * bullet_spread, bullet_spread)/2
             self.set_velocity(Point(bullet_speed/2 - spread, bullet_speed/2 + spread))
 
     def get_spawn_point(self):
         return self._spawn_point
+
+    def bullet_step(self, steps):
+        dx = self.get_velocity().get_x() * steps
+        dy = self.get_velocity().get_y() * steps
+        bx = self.get_position().get_x()
+        by = self.get_position().get_y()  
+        self.set_position(Point((bx + dx) % constants.MAX_X, (by + dy) % constants.MAX_Y))
