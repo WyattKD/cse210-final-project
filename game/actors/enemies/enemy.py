@@ -14,6 +14,7 @@ class Enemy(Actor):
         self._hp = 3
         self._is_on_wall = False
         self._is_crouched = False
+        self._type = "enemy"
 
     def set_is_crouched(self, status):
         self._is_crouched = status

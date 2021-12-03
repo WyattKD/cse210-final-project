@@ -20,7 +20,7 @@ class Walker(Enemy):
         dx = self.get_velocity().get_x()
         dy = self.get_velocity().get_y()
         
-        
+
         if player_x > walker_x:
             self.set_velocity(Point(constants.WALKER_SPEED, dy))
         elif player_x < walker_x:
@@ -28,11 +28,11 @@ class Walker(Enemy):
         else:
             self.set_velocity(Point(0, dy))
 
-        if player_x - walker_x in range(-7, 8) and walker_y - player_y > 80 and round(time(), 2) - self._cooldown_time  >= constants.WALKER_JUMP_TIME:
+        if -7 <= player_x - walker_x <= 7 and walker_y - player_y > 80 and round(time(), 2) - self._cooldown_time  >= constants.WALKER_JUMP_TIME:
             self._cooldown_time = round(time(), 2)
             self._jump_time = round(time(), 2)
             self._is_jumping = True
-        elif self.get_is_on_wall() and round(time(), 2) - self._cooldown_time  >= constants.WALKER_JUMP_TIME and player_x - walker_x not in range(-7, 8):
+        elif self.get_is_on_wall() and round(time(), 2) - self._cooldown_time  >= constants.WALKER_JUMP_TIME and not -7 <= player_x - walker_x <= 7:
             self._cooldown_time = round(time(), 2)
             self._jump_time = round(time(), 2)
             self._is_jumping = True
@@ -44,10 +44,16 @@ class Walker(Enemy):
             dy = -7
             self.set_velocity(Point(dx, dy))
 
-        if player_x - walker_x in range(-7, 8) and player_y - walker_y > 20:
+        if -7 <= player_x - walker_x <= 7 and player_y - walker_y > 20:
+            
             self.set_is_crouched(True)
         else:
             self.set_is_crouched(False)
-    
+
+        if self.has_gravity():
+            dx = self.get_velocity().get_x()
+            dy = 5
+            self.set_velocity(Point(dx, dy))
+
             
             

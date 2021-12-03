@@ -28,48 +28,29 @@ from game.actions.handle_off_screen_action import HandleOffScreenAction
 from game.actions.handle_entity_hp import HandleEntityHP
 from game.actions.handle_enemy_movement import HandleEnemyMovement
 from game.actions.handle_bullet_timeout_action import HandleBulletTimeoutAction
+from game.actions.generate_room_action import GenerateRoomAction
+from game.actions.prevent_enemy_overlap_action import PreventEnemyOverlapAction
 
 def main():
 
     # create the cast {key: tag, value: list}
     cast = {}
 
-    cast["bullets"] = []
-
+    
     player = Player()
     cast["players"] = [player]
-
     gun = Gun()
     gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
     cast["guns"] = [gun]
-    
+    cast["bullets"] = []
+
     cast["walls"] = []
-    wall = Wall(0, 720, 1000, 40)
-    cast["walls"].append(wall)
-    wall = Wall(500, 620, 40, 80)
-    cast["walls"].append(wall)
-
     cast["platforms"] = []
-    platform1 = Platform(240, 560, 120, 20)
-    cast["platforms"].append(platform1)
-    platform2 = Platform(660, 560, 120, 20)
-    cast["platforms"].append(platform2)
-
     cast["enemies"] = []
+
+    generate_room_action = GenerateRoomAction()
+    generate_room_action.execute(cast)
     
-    enemy1 = Walker(50,600)
-    cast["enemies"].append(enemy1)
-    enemy2 = Walker(100,600)
-    cast["enemies"].append(enemy2)
-
-    enemy3 = Flyer(50,50)
-    cast["enemies"].append(enemy3)
-    enemy4 = Flyer(950,50)
-    cast["enemies"].append(enemy4)
-
-    path = [Point(475,100), Point(275, 300), Point(475,500), Point(675, 300)]
-    enemy5 = Mover(475,99, path, True)
-    cast["enemies"].append(enemy5)
     
     # Create the script {key: tag, value: list}
     script = {}
@@ -87,10 +68,10 @@ def main():
     handle_entity_hp = HandleEntityHP()
     handle_enemy_movement = HandleEnemyMovement()
     handle_bullet_timeout_action = HandleBulletTimeoutAction()
-
+    prevent_enemy_overlap_action = PreventEnemyOverlapAction(physics_service)
 
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action]
+    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action, prevent_enemy_overlap_action]
     script["output"] = [draw_actors_action]
 
 

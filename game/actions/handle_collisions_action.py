@@ -51,19 +51,17 @@ class HandleCollisionsAction(Action):
 
     def _handle_entity_wall(self, entity, wall):
             x, y, px, py = self._update_entity_position(entity)
-            wx = int(wall.get_position().get_x() + wall.get_width()/2)
-            wy = int(wall.get_position().get_y() + wall.get_height()/2)
 
             if self._physics_service.is_collision(entity, wall):
-                if entity.get_right_edge() in range(wall.get_left_edge(), wall.get_left_edge() + 10 + 1) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
+                if entity.get_right_edge() in range(wall.get_left_edge(), wall.get_left_edge() + 31) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
                     entity.set_position(Point(wall.get_left_edge() - entity.get_width(), y))
                     self._enemy_on_wall = True
-                elif entity.get_left_edge() in range(wall.get_right_edge() - 10, wall.get_right_edge() + 1) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
+                elif entity.get_left_edge() in range(wall.get_right_edge() - 30, wall.get_right_edge() + 1) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
                     entity.set_position(Point(wall.get_right_edge(), y))
                     self._enemy_on_wall = True
-                elif entity.get_top_edge() in range(wall.get_bottom_edge() - 10, wall.get_bottom_edge() + 1) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
+                elif entity.get_top_edge() in range(wall.get_bottom_edge() - 30, wall.get_bottom_edge() + 1) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
                     entity.set_position(Point(x, wall.get_bottom_edge()))
-                elif entity.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 11) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
+                elif entity.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 31) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
                     entity.set_position(Point(x, wall.get_top_edge() - entity.get_height()))
                     if entity.get_color() == constants.PLAYER_COLOR or entity.get_color() == constants.PLAYER_INV_COLOR:
                         self._player_on_ground = True
