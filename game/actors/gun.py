@@ -19,7 +19,7 @@ class Gun(Actor):
         elif gun == "sniper":
             stats = [30, 30, raylibpy.YELLOW, 30, 2, 1, 0, 1000, 5, 0]
         elif gun == "shotgun":
-            stats = [10, 10, raylibpy.YELLOW, 10, 0.5, 7, 3, 200, 0.3, 0.7]
+            stats = [10, 10, raylibpy.YELLOW, 10, 0.5, 7, 3, 200, 1, 0.7]
         elif gun == "machinegun":
             stats = [15, 15, raylibpy.YELLOW, 15, 0.1, 1, 3, 500, 0.5, 0]
         elif gun == "dual_pistol":

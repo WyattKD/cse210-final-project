@@ -9,6 +9,7 @@ class HandleCollisionsAction(Action):
         self._physics_service = physics_service
         self._player_on_ground = False
         self._enemy_on_wall = False
+        self._player_on_ceiling = False
 
 
     def execute(self, cast):
@@ -17,8 +18,11 @@ class HandleCollisionsAction(Action):
         self._handle_bullet_enemy(cast)
         self._handle_enemy_player(cast)
         self._player_on_ground = False
+        self._player_on_ceiling = False
         self._handle_platforms(cast)
         self._handle_player_ground(cast)
+        self._handle_player_coin(cast)
+        self._handle_coin_ground(cast)
 
     def _handle_enemy_wall(self, cast):
         enemies = cast["enemies"]
@@ -36,32 +40,39 @@ class HandleCollisionsAction(Action):
         for wall in walls:
            self._handle_entity_wall(player, wall)
         player.set_is_on_ground(self._player_on_ground)   
+        player.set_is_on_ceiling(self._player_on_ceiling) 
 
     def _handle_platforms(self, cast):
         player = cast["players"][0]
         enemies = cast["enemies"]
         platforms = cast["platforms"]
+        coins = cast["coins"]
         for platform in platforms:
             self._handle_entity_platform(player, platform)
         player.set_is_on_ground(self._player_on_ground)  
         for enemy in enemies:
             for platform in platforms:
                 self._handle_entity_platform(enemy, platform)
+        for coin in coins:
+            for platform in platforms:
+                self._handle_entity_platform(coin, platform)
 
 
     def _handle_entity_wall(self, entity, wall):
             x, y, px, py = self._update_entity_position(entity)
 
             if self._physics_service.is_collision(entity, wall):
-                if entity.get_right_edge() in range(wall.get_left_edge(), wall.get_left_edge() + 31) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
+                if  wall.get_left_edge() <= entity.get_right_edge() <= wall.get_left_edge() + 10 and wall.get_top_edge() - entity.get_height()/2 + 1<= py <= wall.get_bottom_edge() + entity.get_height()/2 - 1:
                     entity.set_position(Point(wall.get_left_edge() - entity.get_width(), y))
                     self._enemy_on_wall = True
-                elif entity.get_left_edge() in range(wall.get_right_edge() - 30, wall.get_right_edge() + 1) and py in range(int(wall.get_top_edge() - entity.get_height()/2 + 1), int(wall.get_bottom_edge() + entity.get_height()/2)):
+                elif wall.get_right_edge() - 10 <= entity.get_left_edge() <= wall.get_right_edge() and wall.get_top_edge() - entity.get_height()/2 + 1 <= py <= wall.get_bottom_edge() + entity.get_height()/2 - 1:
                     entity.set_position(Point(wall.get_right_edge(), y))
                     self._enemy_on_wall = True
-                elif entity.get_top_edge() in range(wall.get_bottom_edge() - 30, wall.get_bottom_edge() + 1) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
+                elif wall.get_bottom_edge() - 10 <= entity.get_top_edge() <= wall.get_bottom_edge() and wall.get_left_edge() - entity.get_width()/2 + 1 <= px <= wall.get_right_edge() + entity.get_width()/2 - 1:
                     entity.set_position(Point(x, wall.get_bottom_edge()))
-                elif entity.get_bottom_edge() in range(wall.get_top_edge(), wall.get_top_edge() + 31) and px in range(int(wall.get_left_edge() - entity.get_width()/2 + 1), int(wall.get_right_edge() + entity.get_width()/2)):
+                    if entity.get_color() == constants.PLAYER_COLOR or entity.get_color() == constants.PLAYER_INV_COLOR:
+                        self._player_on_ceiling = True
+                elif wall.get_top_edge() <= entity.get_bottom_edge() <= wall.get_top_edge() + 10 and wall.get_left_edge() - entity.get_width()/2 + 1 <= px <= wall.get_right_edge() + entity.get_width()/2 - 1:
                     entity.set_position(Point(x, wall.get_top_edge() - entity.get_height()))
                     if entity.get_color() == constants.PLAYER_COLOR or entity.get_color() == constants.PLAYER_INV_COLOR:
                         self._player_on_ground = True
@@ -110,8 +121,25 @@ class HandleCollisionsAction(Action):
             wx = int(platform.get_position().get_x() + platform.get_width()/2)
             wy = int(platform.get_position().get_y() + platform.get_height()/2)
 
-            if self._physics_service.is_collision(entity, platform) and not entity.get_is_crouched():
-                if entity.get_bottom_edge() in range(platform.get_top_edge(), platform.get_top_edge() + 11) and px in range(int(platform.get_left_edge() - entity.get_width()/2 + 1), int(platform.get_right_edge() + entity.get_width()/2)):
+            if self._physics_service.is_collision(entity, platform) and not entity.get_is_crouched() and entity.has_gravity():
+                if platform.get_top_edge() <= entity.get_bottom_edge() <= platform.get_top_edge() + 10 and platform.get_left_edge() - entity.get_width()/2 <= px <= platform.get_right_edge() + entity.get_width()/2:
                     entity.set_position(Point(x, platform.get_top_edge() - entity.get_height()))
                     if (entity.get_color() == constants.PLAYER_COLOR or entity.get_color() == constants.PLAYER_INV_COLOR) and entity.get_velocity().get_y() >= 0:
                         self._player_on_ground = True
+
+    def _handle_player_coin(self, cast):
+        coins = cast["coins"]
+        player = cast["players"][0]
+        coins_to_remove = []
+        for coin in coins:
+            if self._physics_service.is_collision(player, coin):
+                coins_to_remove.append(coin)
+        for coin in coins_to_remove:
+            coins.remove(coin)
+
+    def _handle_coin_ground(self, cast):
+        coins = cast["coins"]
+        walls = cast["walls"]
+        for coin in coins:
+            for wall in walls:
+                self._handle_entity_wall(coin, wall)

@@ -30,6 +30,8 @@ from game.actions.handle_enemy_movement import HandleEnemyMovement
 from game.actions.handle_bullet_timeout_action import HandleBulletTimeoutAction
 from game.actions.generate_room_action import GenerateRoomAction
 from game.actions.prevent_enemy_overlap_action import PreventEnemyOverlapAction
+from game.actions.handle_coins_action import HandleCoinsAction
+from game.actions.handle_room_travelling_action import HandleRoomTravellingAction
 
 def main():
 
@@ -40,10 +42,10 @@ def main():
     player = Player()
     cast["players"] = [player]
     gun = Gun()
-    gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
+    #gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
     cast["guns"] = [gun]
     cast["bullets"] = []
-
+    cast["coins"] = []
     cast["walls"] = []
     cast["platforms"] = []
     cast["enemies"] = []
@@ -69,9 +71,11 @@ def main():
     handle_enemy_movement = HandleEnemyMovement()
     handle_bullet_timeout_action = HandleBulletTimeoutAction()
     prevent_enemy_overlap_action = PreventEnemyOverlapAction(physics_service)
+    handle_coins_action = HandleCoinsAction()
+    handle_room_travelling_action = HandleRoomTravellingAction()
 
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action, prevent_enemy_overlap_action]
+    script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action, prevent_enemy_overlap_action, handle_coins_action, handle_room_travelling_action]
     script["output"] = [draw_actors_action]
 
 

@@ -11,6 +11,7 @@ class Player(Actor):
         self.set_position(Point(constants.MAX_X/2 - constants.PLAYER_WIDTH/2, constants.MAX_Y/2 - constants.PLAYER_HEIGHT/2))
         self.set_color(constants.PLAYER_COLOR)
         self._is_on_ground = True
+        self._is_on_ceiling = False
         self.is_jumping = False
         self.set_gravity(True)
         self._hp = 3
@@ -47,6 +48,12 @@ class Player(Actor):
 
     def set_is_on_ground(self, status):
         self._is_on_ground = status
+
+    def get_is_on_ceiling(self):
+        return self._is_on_ceiling
+
+    def set_is_on_ceiling(self, status):
+        self._is_on_ceiling = status
 
     def take_damage(self):
         if round(time(), 2) - self._damage_time  >= constants.INVINCIBLE_TIME:

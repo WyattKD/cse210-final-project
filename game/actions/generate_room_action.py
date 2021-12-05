@@ -18,9 +18,16 @@ class GenerateRoomAction(Action):
         self._two_jump_height = 460
         self._three_jump_height = 320
         self._four_jump_height = 180
+        self._old_choice = -1
+        
 
     def execute(self, cast):
-        self._generate_room_2(cast)
+        rooms = [self._generate_room_1, self._generate_room_2]
+        choice = randint(0, len(rooms) - 1)
+        while choice == self._old_choice:
+            choice = randint(0, len(rooms) - 1)
+        rooms[choice](cast)
+        self._old_choice = choice
 
     def _generate_room_1(self, cast):
 
@@ -29,26 +36,34 @@ class GenerateRoomAction(Action):
         self._block_bottom_door(cast)
         self._block_top_door(cast)
         self._block_left_door(cast)
+        self._spawn_right_door(cast)
 
         self._full_platform(cast, self._two_jump_height)
         self._multi_medium(cast, "dual", self._one_jump_height)
         self._multi_long(cast, "center", self._four_jump_height - 60)    
 
     def _generate_room_2(self, cast):
+        self._spawn_bottom_door(cast)
+        self._spawn_top_door(cast)
+        self._spawn_left_door(cast)
+        self._spawn_right_door(cast)
+        
         self._default_walls(cast)
+
+        
 
         self._full_platform(cast, self._one_jump_height)
         self._full_platform(cast, self._two_jump_height)
         self._full_platform(cast, self._three_jump_height)
         self._full_platform(cast, self._four_jump_height)
 
-        self._spawn_walkers(cast, 4, "bottom_right")
-        self._spawn_flyers(cast, 5, "top_left")
+        self._spawn_walkers(cast, 2, "bottom_right")
+        self._spawn_flyers(cast, 3, "top_left")
 
         
 
         path = [Point(475,100), Point(275, 300), Point(475,500), Point(675, 300)]
-        enemy5 = Mover(475,99, path, True)
+        enemy5 = Mover(500,600, path, True)
         cast["enemies"].append(enemy5)
 
     def _spawn_randomly(self, cast, area):
@@ -86,36 +101,48 @@ class GenerateRoomAction(Action):
 
     def _default_walls(self, cast):
         # Top left segment
-        cast["walls"].append(Wall(0, 0, 440, 40))
+        cast["walls"].append(Wall(0, 0, 440, 40, False))
         # Top right segmen
-        cast["walls"].append(Wall(560, 0, 440, 40))
+        cast["walls"].append(Wall(560, 0, 440, 40, False))
 
         # Bottom left segment
-        cast["walls"].append(Wall(0, 760, 440, 40))
+        cast["walls"].append(Wall(0, 760, 440, 40, False))
         # Bottom right segment
-        cast["walls"].append(Wall(560, 760, 440, 40))
+        cast["walls"].append(Wall(560, 760, 440, 40, False))
     
         # Left top segment
-        cast["walls"].append(Wall(0, 0, 40, 340))
+        cast["walls"].append(Wall(0, 0, 40, 340, False))
         # Left bottom segment
-        cast["walls"].append(Wall(0, 460, 40, 340))
+        cast["walls"].append(Wall(0, 460, 40, 340, False))
 
         # Right top segment
-        cast["walls"].append(Wall(960, 0, 40, 340))
+        cast["walls"].append(Wall(960, 0, 40, 340, False))
         # Right bottom segment
-        cast["walls"].append(Wall(960, 460, 40, 340))
+        cast["walls"].append(Wall(960, 460, 40, 340, False))
 
     def _block_top_door(self, cast):
-        cast["walls"].append(Wall(440, 0, 120, 40))
+        cast["walls"].append(Wall(440, 0, 120, 40, False))
 
     def _block_bottom_door(self, cast):
-        cast["walls"].append(Wall(440, 760, 120, 40))
+        cast["walls"].append(Wall(440, 760, 120, 40, False))
 
     def _block_right_door(self, cast):
-        cast["walls"].append(Wall(960, 340, 40, 120))
+        cast["walls"].append(Wall(960, 340, 40, 120, False))
 
     def _block_left_door(self, cast):
-        cast["walls"].append(Wall(0, 340, 40, 120))
+        cast["walls"].append(Wall(0, 340, 40, 120, False))
+
+    def _spawn_top_door(self, cast):
+        cast["walls"].append(Wall(440, 0, 120, 40, True))
+
+    def _spawn_bottom_door(self, cast):
+        cast["walls"].append(Wall(440, 760, 120, 40, True))
+
+    def _spawn_right_door(self, cast):
+        cast["walls"].append(Wall(960, 340, 40, 120, True))
+
+    def _spawn_left_door(self, cast):
+        cast["walls"].append(Wall(0, 340, 40, 120, True))
 
     def _full_platform(self, cast, y):
         cast["platforms"].append(Platform(40, y, 920, 20))

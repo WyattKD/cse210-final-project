@@ -39,3 +39,6 @@ class Enemy(Actor):
 
     def move(self, player):
         raise NotImplementedError("execute not implemented in superclass")
+
+
+            
