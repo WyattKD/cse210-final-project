@@ -42,7 +42,8 @@ def main():
     player = Player()
     cast["players"] = [player]
     gun = Gun()
-    gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
+    #gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
+    gun.set_gun_type("shotgun")
     cast["guns"] = [gun]
     cast["bullets"] = []
     cast["coins"] = []
@@ -52,7 +53,7 @@ def main():
     cast["pickups"] = []
 
     generate_room_action = GenerateRoomAction()
-    generate_room_action.execute(cast)
+    generate_room_action._generate_room_1(cast)
     
     
     # Create the script {key: tag, value: list}
