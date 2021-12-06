@@ -21,6 +21,7 @@ class HandleRoomTravellingAction(Action):
             cast["walls"] = []
             cast["platforms"] = []
             cast["coins"] = []
+            cast["pickups"] = []
             self._generate_room_action.execute(cast)
             if x < 10:
                 x = 919

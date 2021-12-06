@@ -3,7 +3,8 @@ from game.actions.action import Action
 from game.point import Point
 from random import randint
 from game.actors.coin import Coin
-
+from game.actors.health_pickup import HealthPickup
+from game.actors.weapon_pickup import WeaponPickup
 class HandleEntityHP(Action):
 
     def __init__(self):
@@ -25,6 +26,10 @@ class HandleEntityHP(Action):
             amount = randint(5, 10)
             for _ in range(amount):
                 coins.append(Coin(enemy.get_position()))
+            if randint(1,10) == 1:
+                cast["pickups"].append(HealthPickup(enemy.get_position()))
+            elif randint(1,10) == 1:
+                cast["pickups"].append(WeaponPickup(enemy.get_position()))
             enemies.remove(enemy)
 
     def _handle_player_hp(self, cast):

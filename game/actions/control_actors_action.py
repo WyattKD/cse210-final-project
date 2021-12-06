@@ -2,7 +2,7 @@ from game import constants
 from game.actions.action import Action
 from game.point import Point
 from game.actors.bullet import Bullet
-from time import time, sleep
+from time import time
 from random import randint
 
 class ControlActorsAction(Action):
@@ -13,7 +13,7 @@ class ControlActorsAction(Action):
         self._jump_time = round(time(), 2)
         self._shoot_time = round(time(), 2)
         self._bullet_time = round(time(), 2)
-        self._inputs = ["", "" , ""]
+        self._inputs = ["", "", ""]
         
 
     def execute(self, cast):
@@ -40,7 +40,6 @@ class ControlActorsAction(Action):
                 player.set_gravity(False)
                 if player.get_is_on_ceiling():
                     dy = 0
-                    print(True)
                 elif dy > 0:
                     dy = 0
                 elif dy <= -9:
