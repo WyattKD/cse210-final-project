@@ -10,6 +10,7 @@ class HandleOffScreenAction(Action):
     def execute(self, cast):
         self._handle_bullet_offscreen(cast)
         self._handle_coin_offscreen(cast)
+        self._handle_pickup_offscreen(cast)
 
     def _handle_bullet_offscreen(self, cast):
         bullets_to_remove = []
@@ -30,3 +31,13 @@ class HandleOffScreenAction(Action):
                 coins_to_remove.append(coin)
         for coin in coins_to_remove:
             cast["coins"].remove(coin)
+
+    def _handle_pickup_offscreen(self, cast):
+        pickups_to_remove = []
+        for pickup in cast["pickups"]:
+            x = pickup.get_position().get_x()
+            y = pickup.get_position().get_y()
+            if x <= 30 or  x >= 970 - pickup.get_width() or y <= 30 or y >= 770 - pickup.get_height():
+                pickups_to_remove.append(pickup)
+        for pickup in pickups_to_remove:
+            cast["pickups"].remove(pickup)

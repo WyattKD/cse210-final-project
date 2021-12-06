@@ -6,7 +6,7 @@ class HealthPickup(Actor):
 
     def __init__(self, position):
         super().__init__()
-        self.set_gravity(False)
+        self.set_gravity(True)
         self.set_width(constants.HEALTH_PICKUP_WIDTH)
         self.set_height(constants.HEALTH_PICKUP_HEIGHT)
         self.set_color(constants.HEALTH_PICKUP_COLOR)
@@ -15,3 +15,6 @@ class HealthPickup(Actor):
 
     def get_type(self):
         return self._type
+
+    def get_is_crouched(self):
+        return False

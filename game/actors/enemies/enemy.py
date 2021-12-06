@@ -13,6 +13,7 @@ class Enemy(Actor):
         self.set_gravity(True)
         self._hp = 3
         self._is_on_wall = False
+        self._is_on_ground = False
         self._is_crouched = False
         self._type = "enemy"
 
@@ -33,6 +34,12 @@ class Enemy(Actor):
     
     def get_is_on_wall(self):
         return self._is_on_wall
+
+    def set_is_on_ground(self, status):
+        self._is_on_ground = status
+    
+    def get_is_on_ground(self):
+        return self._is_on_ground
 
     def take_damage(self, damage):
         self.set_hp(self.get_hp() - damage)

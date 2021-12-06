@@ -11,6 +11,7 @@ class Flyer(Enemy):
         self.set_gravity(False)
         self.set_width(constants.FLYER_WIDTH)
         self.set_height(constants.FLYER_HEIGHT)
+        self.set_collision(False)
 
     def move(self, player):
 

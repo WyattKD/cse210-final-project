@@ -6,7 +6,7 @@ class WeaponPickup(Actor):
 
     def __init__(self, position):
         super().__init__()
-        self.set_gravity(False)
+        self.set_gravity(True)
         self.set_width(constants.WEAPON_PICKUP_WIDTH)
         self.set_height(constants.WEAPON_PICKUP_HEIGHT)
         self.set_color(constants.WEAPON_PICKUP_COLOR)
@@ -15,3 +15,6 @@ class WeaponPickup(Actor):
 
     def get_type(self):
         return self._type
+
+    def get_is_crouched(self):
+        return False

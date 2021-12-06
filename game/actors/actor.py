@@ -32,6 +32,7 @@ class Actor:
         self._color = ""
         self._has_gravity = False
         self._is_on_ground = False
+        self._collision = True
 
     def has_gravity(self):
         return self._has_gravity
@@ -152,4 +153,10 @@ class Actor:
 
     def has_color(self):
         return self._color != ""
+
+    def has_collision(self):
+        return self._collision
+
+    def set_collision(self, status):
+        self._collision = status
 

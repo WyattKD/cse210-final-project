@@ -23,8 +23,9 @@ class Mover(Enemy):
         dy = self._current_point.get_y() - self.get_position().get_y()
 
         distance = sqrt(dx*dx + dy*dy)
-        dx /= distance
-        dy /= distance
+        if distance != 0:
+            dx /= distance
+            dy /= distance
 
         dx *= constants.MOVER_SPEED
         dy *= constants.MOVER_SPEED
