@@ -20,7 +20,8 @@ from game.actors.enemies.enemy import Enemy
 from game.actors.enemies.walker_enemy import Walker
 from game.actors.enemies.flyer_enemy import Flyer
 from game.actors.enemies.mover_enemy import Mover
-
+from game.actors.background import Background
+from game.actors.hp_bar import HpBar
 from game.actions.control_actors_action import ControlActorsAction
 from game.actions.handle_collisions_action import HandleCollisionsAction
 from game.actions.move_actors_action import MoveActorsAction
@@ -33,12 +34,15 @@ from game.actions.prevent_enemy_overlap_action import PreventEnemyOverlapAction
 from game.actions.handle_coins_action import HandleCoinsAction
 from game.actions.handle_room_travelling_action import HandleRoomTravellingAction
 from game.actions.handle_pickups import HandlePickups
+from game.actions.handle_animations import HandleAnimations
+
 def main():
 
     # create the cast {key: tag, value: list}
     cast = {}
 
-    
+    background = Background()
+    cast["background"] = [background]
     player = Player()
     cast["players"] = [player]
     gun = Gun()
@@ -50,6 +54,9 @@ def main():
     cast["platforms"] = []
     cast["enemies"] = []
     cast["pickups"] = []
+    hp_bar = HpBar()
+    cast["UI"] = [hp_bar]
+    
 
     generate_room_action = GenerateRoomAction()
     generate_room_action._generate_room_1(cast)
@@ -75,10 +82,11 @@ def main():
     handle_coins_action = HandleCoinsAction()
     handle_room_travelling_action = HandleRoomTravellingAction()
     handle_pickups = HandlePickups(physics_service)
+    handle_animations = HandleAnimations(input_service)
 
     script["input"] = [control_actors_action]
     script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action, prevent_enemy_overlap_action, handle_coins_action, handle_room_travelling_action, handle_pickups]
-    script["output"] = [draw_actors_action]
+    script["output"] = [handle_animations, draw_actors_action]
 
 
 

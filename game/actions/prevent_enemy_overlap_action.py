@@ -22,8 +22,9 @@ class PreventEnemyOverlapAction(Action):
                 dy = enemy1.get_position().get_y() - enemy2.get_position().get_y()
 
                 distance = sqrt(dx*dx + dy*dy)
-                if distance != 0 and distance <= 20:
+                if distance != 0 and distance <= 30:
                     dx /= distance
                     dy /= distance
                     ndx = (dx2 - dx)/2
-                    enemy2.set_velocity(Point(ndx, dy2))
+                    ndy = (dy2 - dy)/2
+                    enemy2.set_velocity(Point(ndx, ndy))

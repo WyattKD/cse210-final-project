@@ -2,9 +2,11 @@ from game.actors.actor import Actor
 from game.point import Point
 from game import constants
 from math import sqrt
+
+
 class Wall(Actor):
 
-    def __init__(self, x, y, width, height, type):
+    def __init__(self, x, y, width, height, type, image):
         super().__init__()
         self.set_width(width)
         self.set_height(height)
@@ -14,6 +16,7 @@ class Wall(Actor):
             self.set_color(constants.WALL_COLOR)
         else:
             self.set_color(constants.DOOR_COLOR)
+        self.set_image(image)
 
     def get_type(self):
         return self._type
