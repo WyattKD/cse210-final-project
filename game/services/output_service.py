@@ -42,18 +42,14 @@ class OutputService:
         """
         raylibpy.draw_rectangle(x, y, width, height, color)
 
-    def draw_text(self, x, y, text, is_dark_text):
+    def draw_text(self, x, y, text, font_size, color):
         """
         Outputs the provided text at the desired location.
         """
-        color = raylibpy.WHITE
 
-        if is_dark_text:
-            color = raylibpy.BLACK
+        raylibpy.draw_text(text, x + 5, y + 5, font_size, color)
 
-        raylibpy.draw_text(text, x + 5, y + 5, constants.DEFAULT_FONT_SIZE, color)
-
-    def draw_image(self, x, y, image):
+    def draw_image(self, x, y, image, tint):
         """
         Outputs the provided image on the screen.
         """
@@ -63,7 +59,7 @@ class OutputService:
             self._textures[image] = loaded
 
         texture = self._textures[image]
-        raylibpy.draw_texture(texture, x, y, raylibpy.WHITE)
+        raylibpy.draw_texture(texture, x, y, tint)
 
     def draw_actor(self, actor):
         """Renders the given actor's text on the screen.
@@ -80,11 +76,17 @@ class OutputService:
 
         if actor.has_image():
             image = actor.get_image()
-            self.draw_image(x, y, image)
-            #self.draw_image(x - width / 2, y - height / 2, image)
+            if (actor.get_color() == constants.PLAYER_COLOR or actor.get_color() == constants.PLAYER_INV_COLOR):
+                self.draw_image(x - width / 2, y, image, actor.get_tint())
+            else:
+                self.draw_image(x, y, image, actor.get_tint())
+
+            
         elif actor.has_text():
             text = actor.get_text()
-            self.draw_text(x, y, text, True)
+            if not actor.has_color():
+                color = raylibpy.WHITE
+            self.draw_text(x, y, actor.get_text(), actor.get_font_size(), actor.get_color())
         elif actor.has_color():
             color = actor.get_color()
             self.draw_box(x, y, width, height, color)

@@ -13,10 +13,12 @@ class Bullet(Actor):
         bullet_color = stats[2]
         bullet_speed = stats[3]
         bullet_spread = stats[6]
+        bullet_image = stats[10]
         self.set_width(bullet_width)
         self.set_height(bullet_height)
         self.set_color(bullet_color)
         self.set_position(Point(x - bullet_width/2, y - bullet_height/2))
+        self.set_image(bullet_image)
         self._spawn_point = self.get_position() 
         if direction == "left":
             spread = uniform(-1 * bullet_spread, bullet_spread)

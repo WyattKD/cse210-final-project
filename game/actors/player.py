@@ -1,7 +1,9 @@
 from game.actors.actor import Actor
 from game.point import Point
 from game import constants
-from time import *
+from time import time
+import raylibpy
+
 class Player(Actor):
 
     def __init__(self):
@@ -10,7 +12,7 @@ class Player(Actor):
         self.set_height(constants.PLAYER_HEIGHT)
         self.set_position(Point(constants.MAX_X/2 - constants.PLAYER_WIDTH/2, constants.MAX_Y/2 - constants.PLAYER_HEIGHT/2))
         self.set_color(constants.PLAYER_COLOR)
-        self.set_image(constants.PLAYER_IMAGE)
+        self.set_image(constants.PLAYER_LEFT)
         self._is_on_ground = True
         self._is_on_ceiling = False
         self.is_jumping = False

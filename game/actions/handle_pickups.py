@@ -29,11 +29,13 @@ class HandlePickups(Action):
         player = cast["players"][0]
         pickups = cast["pickups"]
         gun = cast["guns"][0]
+        weapon_text = cast["UI"][4]
         pickups_to_remove = []
         for pickup in pickups:
             if pickup.get_type() == "weapon" and self._physics_service.is_collision(player, pickup):
-                gun.set_gun_type(choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
+                gun.set_gun_type(pickup.get_gun_type())
                 pickups_to_remove.append(pickup)
         for pickup in pickups_to_remove:
             pickups.remove(pickup)
+        weapon_text.set_text(f"Gun: {gun.get_gun_type().title()}")
 

@@ -1,5 +1,7 @@
 from game import constants
 from game.point import Point
+from time import time
+import raylibpy
 
 class Actor:
     """A visible, moveable thing that participates in the game. The responsibility of Actor is to keep track of its appearance, position 
@@ -33,6 +35,22 @@ class Actor:
         self._has_gravity = False
         self._is_on_ground = False
         self._collision = True
+        self._frame_time = round(time(), 2)
+        self._animation = ""
+        self._frame_index = 0
+        self._tint = raylibpy.WHITE
+
+    def set_tint(self, tint):
+        self._tint = tint
+
+    def get_tint(self):
+        return self._tint
+
+    def set_frame_index(self, num):
+        self._frame_index = num
+
+    def get_frame_index(self):
+        return self._frame_index
 
     def has_gravity(self):
         return self._has_gravity
@@ -107,6 +125,15 @@ class Actor:
     def set_text(self, text):
         self._text = text
 
+    def has_animation(self):
+        return self._animation != ""
+
+    def get_animation(self):
+        return self._animation
+
+    def set_animation(self, animation):
+        self._animation = animation
+
     def get_velocity(self):
         """Gets the actor's speed and direction.
         
@@ -145,6 +172,11 @@ class Actor:
         """
         self._velocity = velocity
 
+    def set_frame_time(self):
+        self._frame_time = round(time(), 2)
+
+    def get_frame_time(self):
+        return self._frame_time
     def has_text(self):
         return self._text != ""
 

@@ -13,6 +13,7 @@ from game.services.physics_service import PhysicsService
 from game.services.audio_service import AudioService
 
 from game.actors.player import Player
+from game.actors.player_legs import PlayerLegs
 from game.actors.gun import Gun
 from game.actors.wall import Wall
 from game.actors.platform import Platform
@@ -22,6 +23,9 @@ from game.actors.enemies.flyer_enemy import Flyer
 from game.actors.enemies.mover_enemy import Mover
 from game.actors.background import Background
 from game.actors.hp_bar import HpBar
+from game.actors.text import Text
+
+
 from game.actions.control_actors_action import ControlActorsAction
 from game.actions.handle_collisions_action import HandleCollisionsAction
 from game.actions.move_actors_action import MoveActorsAction
@@ -35,6 +39,7 @@ from game.actions.handle_coins_action import HandleCoinsAction
 from game.actions.handle_room_travelling_action import HandleRoomTravellingAction
 from game.actions.handle_pickups import HandlePickups
 from game.actions.handle_animations import HandleAnimations
+from game.actions.update_ui import UpdateUI
 
 def main():
 
@@ -43,10 +48,14 @@ def main():
 
     background = Background()
     cast["background"] = [background]
+    player_legs = PlayerLegs()
+    cast["player_parts"] = [player_legs]
     player = Player()
     cast["players"] = [player]
+    
     gun = Gun()
-    gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst_rifle", "minigun", "machinegun", "dual_pistol", "bubble"]))
+    gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst rifle", "minigun", "machinegun", "dual pistol", "bubble"]))
+    gun.set_gun_type("minigun")
     cast["guns"] = [gun]
     cast["bullets"] = []
     cast["coins"] = []
@@ -56,7 +65,18 @@ def main():
     cast["pickups"] = []
     hp_bar = HpBar()
     cast["UI"] = [hp_bar]
-    
+    hp_text = Text("HP: ", Point(0, 5), 60, raylibpy.RED)
+    cast["UI"].append(hp_text)
+    gold_text = Text("GOLD: ", Point(660, 5), 60, raylibpy.GOLD)
+    cast["UI"].append(gold_text)
+    gold_count = Text("0", Point(840, 5), 60, raylibpy.GOLD)
+    cast["UI"].append(gold_count)
+    weapon_text = Text(f"Gun: {gun.get_gun_type().title()}", Point(5, 750), 40, raylibpy.WHITE)
+    cast["UI"].append(weapon_text)
+    rooms_cleared_text = Text("0", Point(0, 0), 0, raylibpy.BLANK)
+    cast["UI"].append(rooms_cleared_text)
+    enemies_defeated_text = Text("0", Point(0, 0), 0, raylibpy.BLANK)
+    cast["UI"].append(enemies_defeated_text)
 
     generate_room_action = GenerateRoomAction()
     generate_room_action._generate_room_1(cast)
@@ -83,10 +103,11 @@ def main():
     handle_room_travelling_action = HandleRoomTravellingAction()
     handle_pickups = HandlePickups(physics_service)
     handle_animations = HandleAnimations(input_service)
+    update_ui = UpdateUI()
 
     script["input"] = [control_actors_action]
     script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action, prevent_enemy_overlap_action, handle_coins_action, handle_room_travelling_action, handle_pickups]
-    script["output"] = [handle_animations, draw_actors_action]
+    script["output"] = [update_ui, handle_animations, draw_actors_action]
 
 
 

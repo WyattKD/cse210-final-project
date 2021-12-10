@@ -12,6 +12,16 @@ class Flyer(Enemy):
         self.set_width(constants.FLYER_WIDTH)
         self.set_height(constants.FLYER_HEIGHT)
         self.set_collision(False)
+        self.set_animation(constants.FLYER_ANIMATION)
+        self.set_image(constants.FLYER_ANIMATION_1)
+        self.switch_animation()
+
+    def switch_animation(self):
+        if self.get_velocity().get_x() > 0:
+            self.set_animation(constants.FLYER_ANIMATIONF)
+        else:
+            self.set_animation(constants.FLYER_ANIMATION)
+
 
     def move(self, player):
 

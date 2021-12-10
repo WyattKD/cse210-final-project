@@ -16,6 +16,8 @@ class Coin(Actor):
         self.set_color(constants.COIN_COLOR)
         self._spawn_time = round(time(), 2)
         self.random_velocity()
+        self.set_animation(constants.COIN_ANIMATION)
+        self.set_image(constants.COIN_ANIMATION_1)
 
     def get_is_crouched(self):
         return False

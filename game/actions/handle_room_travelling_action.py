@@ -1,8 +1,9 @@
+import raylibpy
 from game import constants
 from game.actions.action import Action
 from game.point import Point
 from game.actions.generate_room_action import GenerateRoomAction
-from random import randint
+from random import randint, choice
 
 class HandleRoomTravellingAction(Action):
 
@@ -11,6 +12,7 @@ class HandleRoomTravellingAction(Action):
         self._generate_room_action = GenerateRoomAction()
         self._doors = ["wall", "door", "wall", "wall"]
         self._door_closed = True
+        self._theme = raylibpy.WHITE
 
     def execute(self, cast):
         self._traverse_room(cast)
@@ -48,6 +50,7 @@ class HandleRoomTravellingAction(Action):
                     door = randint(1, 3)
                 self._doors[door] = "door"
             self._generate_room_action.execute(cast, self._doors)
+            self._randomize_colors(cast)
             self._door_closed = False
             player.set_position(Point(x, y))
         elif not self._door_closed:
@@ -72,6 +75,8 @@ class HandleRoomTravellingAction(Action):
             elif self._doors[3] == "open" and y < 760:
                 self._generate_room_action._spawn_bottom_entrance(cast)
                 self._door_closed = True
+            for wall in cast["walls"]:
+                wall.set_tint(self._theme)
 
     
     def _handle_doors(self, cast):
@@ -83,4 +88,15 @@ class HandleRoomTravellingAction(Action):
                     doors_to_remove.append(wall)
             for door in doors_to_remove:
                 walls.remove(door)
+
+    def _randomize_colors(self, cast):
+        walls = cast["walls"]
+        platforms = cast["platforms"]
+        background = cast["background"][0]
+        self._theme = choice([raylibpy.LIGHTGRAY, raylibpy.GRAY, raylibpy.YELLOW, raylibpy.GOLD, raylibpy.ORANGE, raylibpy.PINK, raylibpy.RED, raylibpy.MAROON, raylibpy.GREEN, raylibpy.LIME, raylibpy.SKYBLUE, raylibpy.BLUE, raylibpy.PURPLE, raylibpy.VIOLET, raylibpy.BEIGE, raylibpy.BROWN, raylibpy.WHITE, raylibpy.MAGENTA])
+        for wall in walls:
+            wall.set_tint(self._theme)
+        for platform in platforms:
+            platform.set_tint(self._theme)
+        background.set_tint(self._theme)
                     

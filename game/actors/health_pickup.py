@@ -1,6 +1,7 @@
 from game.actors.actor import Actor
 from game.point import Point
 from game import constants
+from time import time
 
 class HealthPickup(Actor):
 
@@ -12,6 +13,8 @@ class HealthPickup(Actor):
         self.set_color(constants.HEALTH_PICKUP_COLOR)
         self.set_position(position)
         self._type = "health"
+        self.set_animation(constants.HEALTH_ANIMATION)
+        self.set_image(constants.HEALTH_ANIMATION_1)
 
     def get_type(self):
         return self._type

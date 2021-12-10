@@ -7,10 +7,22 @@ class Walker(Enemy):
 
     def __init__(self, x, y):
         super().__init__(x, y)
+        self.set_width(constants.WALKER_WIDTH)
+        self.set_height(constants.WALKER_HEIGHT)
         self.set_hp(5)
         self._cooldown_time = round(time(), 2)
         self._jump_time = round(time(), 2)
         self._is_jumping = False
+        self.set_animation(constants.WALKER_ANIMATION)
+        self.set_image(constants.WALKER_ANIMATION_1)
+        self.switch_animation()
+
+    def switch_animation(self):
+        
+        if self.get_velocity().get_x() > 0:
+            self.set_animation(constants.WALKER_ANIMATIONF)
+        else:
+            self.set_animation(constants.WALKER_ANIMATION)
 
     def move(self, player):
         player_x = player.get_position().get_x() + player.get_width()/2
@@ -57,7 +69,6 @@ class Walker(Enemy):
                 self.set_position(Point(self.get_position().get_x(), self.get_position().get_y() - 1))
             else:
                 dy = 5
-                dx = 0
             self.set_velocity(Point(dx, dy))
             
 

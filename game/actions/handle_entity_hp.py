@@ -18,6 +18,7 @@ class HandleEntityHP(Action):
         enemies_to_remove = []
         enemies = cast["enemies"]
         coins = cast["coins"]
+        enemies_defeated_text = cast["UI"][6]
         for enemy in enemies:
             if enemy.get_hp() <= 0:
                 enemies_to_remove.append(enemy)
@@ -31,6 +32,9 @@ class HandleEntityHP(Action):
             elif randint(1,10) == 1:
                 cast["pickups"].append(WeaponPickup(enemy.get_position()))
             enemies.remove(enemy)
+            enemies_defeated = int(enemies_defeated_text.get_text())
+            enemies_defeated += 1
+            enemies_defeated_text.set_text(str(enemies_defeated))
 
     def _handle_player_hp(self, cast):
         player = cast["players"][0]

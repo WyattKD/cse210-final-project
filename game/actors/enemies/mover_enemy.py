@@ -16,6 +16,9 @@ class Mover(Enemy):
         self._current_point = self._path[0]
         self._iteration = 0
         self._going_down = False
+        self.set_animation(constants.MOVER_ANIMATION)
+        self.set_image(constants.MOVER_ANIMATION_1)
+    
 
     def move(self, player):
         self._current_point = self._path[self._iteration]

@@ -17,6 +17,9 @@ class Enemy(Actor):
         self._is_crouched = False
         self._type = "enemy"
 
+    def switch_animation(self):
+            pass
+
     def set_is_crouched(self, status):
         self._is_crouched = status
 

@@ -143,12 +143,16 @@ class HandleCollisionsAction(Action):
     def _handle_player_coin(self, cast):
         coins = cast["coins"]
         player = cast["players"][0]
+        gold_count = cast["UI"][3]
         coins_to_remove = []
         for coin in coins:
             if self._physics_service.is_collision(player, coin):
                 coins_to_remove.append(coin)
         for coin in coins_to_remove:
             coins.remove(coin)
+            gold = int(gold_count.get_text())
+            gold += 1
+            gold_count.set_text(str(gold))
 
     def _handle_coin_ground(self, cast):
         coins = cast["coins"]

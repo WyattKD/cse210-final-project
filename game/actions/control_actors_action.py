@@ -83,41 +83,41 @@ class ControlActorsAction(Action):
                     y = player.get_position().get_y()
                     if "13" in self._inputs[0] or "13" in self._inputs[1] or "13" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("leftup", x, y, stats))
+                            bullets.append(Bullet("leftup", x - 10, y + 20, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "14" in self._inputs[0] or  "14" in self._inputs[1] or "14" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("leftdown", x, y + constants.PLAYER_HEIGHT, stats))
+                            bullets.append(Bullet("leftdown", x - 16, y - 20 + constants.PLAYER_HEIGHT, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "23" in self._inputs[0] or "23" in self._inputs[1] or "23" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("rightup", x + constants.PLAYER_WIDTH, y, stats))
+                            bullets.append(Bullet("rightup", x + constants.PLAYER_WIDTH + 10, y + 20, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "24" in self._inputs[0] or "24" in self._inputs[1] or "24" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("rightdown", x + constants.PLAYER_WIDTH, y + constants.PLAYER_HEIGHT, stats))
+                            bullets.append(Bullet("rightdown", x + constants.PLAYER_WIDTH + 16, y + constants.PLAYER_HEIGHT - 20, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "1" in self._inputs[0] or "1" in self._inputs[1] or "1" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("left", x, y + constants.PLAYER_HEIGHT/2, stats))
+                            bullets.append(Bullet("left", x - 10, y + constants.PLAYER_HEIGHT/2 - 7, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "2" in self._inputs[0] or "2" in self._inputs[1] or "2" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("right", x + constants.PLAYER_WIDTH, y + constants.PLAYER_HEIGHT/2, stats))
+                            bullets.append(Bullet("right", x + constants.PLAYER_WIDTH + 5, y + constants.PLAYER_HEIGHT/2 - 7, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "3" in self._inputs[0] or "3" in self._inputs[1] or "3" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("up", x + constants.PLAYER_WIDTH/2, y, stats))
+                            bullets.append(Bullet("up", x + constants.PLAYER_WIDTH/2 - 3, y + 10, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "4" in self._inputs[0] or "4" in self._inputs[1] or "4" in self._inputs[2]:
                         for shots in range(num_bullets):
-                            bullets.append(Bullet("down", x + constants.PLAYER_WIDTH/2, y + constants.PLAYER_HEIGHT, stats))
+                            bullets.append(Bullet("down", x + constants.PLAYER_WIDTH/2, y - 13 + constants.PLAYER_HEIGHT, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)

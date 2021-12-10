@@ -9,4 +9,4 @@ class HpBar(Actor):
     def __init__(self):
         super().__init__()
         self.set_image(constants.HP_BAR_3)
-        self.set_position(Point(20, 0))
+        self.set_position(Point(110, 0))
