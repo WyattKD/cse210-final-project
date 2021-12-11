@@ -54,7 +54,7 @@ class ControlActorsAction(Action):
             
             player.set_velocity(Point(dx, dy))  
         else:
-            player.set_velocity(Point(0, 0))
+            player.set_velocity(Point(0, 9))
 
     def _player_jump(self, player):
         if "w" in self._input_service.get_inputs() and player.get_is_on_ground():

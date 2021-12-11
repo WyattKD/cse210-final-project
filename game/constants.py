@@ -178,3 +178,41 @@ RIFLE_PICKUP = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//
 BURST_RIFLE_PICKUP = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/burst_rifle_pickup.png")
 BUBBLE_PICKUP = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/bubble_pickup.png")
 LASER_PICKUP = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/laser_pickup.png")
+
+LEFT_DEATH_ANIMATION_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left1.png")
+LEFT_DEATH_ANIMATION_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left2.png")
+LEFT_DEATH_ANIMATION_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left3.png")
+LEFT_DEATH_ANIMATION_4 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left4.png")
+LEFT_DEATH_ANIMATION_5 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left5.png")
+LEFT_DEATH_ANIMATION_6 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left6.png")
+LEFT_DEATH_ANIMATION_7 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left7.png")
+LEFT_DEATH_ANIMATION_8 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left8.png")
+LEFT_DEATH_ANIMATION_9 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_left9.png")
+LEFT_DEATH_ANIMATION = [LEFT_DEATH_ANIMATION_1, LEFT_DEATH_ANIMATION_2, LEFT_DEATH_ANIMATION_3, LEFT_DEATH_ANIMATION_4, LEFT_DEATH_ANIMATION_5, LEFT_DEATH_ANIMATION_6, LEFT_DEATH_ANIMATION_7, LEFT_DEATH_ANIMATION_8, LEFT_DEATH_ANIMATION_9]
+
+RIGHT_DEATH_ANIMATION_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right1.png")
+RIGHT_DEATH_ANIMATION_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right2.png")
+RIGHT_DEATH_ANIMATION_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right3.png")
+RIGHT_DEATH_ANIMATION_4 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right4.png")
+RIGHT_DEATH_ANIMATION_5 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right5.png")
+RIGHT_DEATH_ANIMATION_6 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right6.png")
+RIGHT_DEATH_ANIMATION_7 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right7.png")
+RIGHT_DEATH_ANIMATION_8 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right8.png")
+RIGHT_DEATH_ANIMATION_9 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/player_death_right9.png")
+RIGHT_DEATH_ANIMATION = [RIGHT_DEATH_ANIMATION_1, RIGHT_DEATH_ANIMATION_2, RIGHT_DEATH_ANIMATION_3, RIGHT_DEATH_ANIMATION_4, RIGHT_DEATH_ANIMATION_5, RIGHT_DEATH_ANIMATION_6, RIGHT_DEATH_ANIMATION_7, RIGHT_DEATH_ANIMATION_8, RIGHT_DEATH_ANIMATION_9]
+
+TUTORIAL_ANIMATION_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial1.png")
+TUTORIAL_ANIMATION_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial2.png")
+TUTORIAL_ANIMATION_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial3.png")
+TUTORIAL_ANIMATION_4 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial4.png")
+TUTORIAL_ANIMATION_5 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial5.png")
+TUTORIAL_ANIMATION_6 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial6.png")
+TUTORIAL_ANIMATION_7 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial7.png")
+TUTORIAL_ANIMATION_8 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/tutorial8.png")
+TUTORIAL_ANIMATION = [TUTORIAL_ANIMATION_1, TUTORIAL_ANIMATION_2, TUTORIAL_ANIMATION_3, TUTORIAL_ANIMATION_4, TUTORIAL_ANIMATION_5, TUTORIAL_ANIMATION_6, TUTORIAL_ANIMATION_7, TUTORIAL_ANIMATION_8]
+TUTORIAL_WIDTH = 360
+TUTORIAL_HEIGHT = 240
+
+GAMEOVER_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/gameover1.png")
+GAMEOVER_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/gameover2.png")
+GAMEOVER_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/gameover3.png")

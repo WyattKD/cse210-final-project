@@ -37,5 +37,5 @@ class HandlePickups(Action):
                 pickups_to_remove.append(pickup)
         for pickup in pickups_to_remove:
             pickups.remove(pickup)
-        weapon_text.set_text(f"Gun: {gun.get_gun_type().title()}")
+        weapon_text.set_text(f"{gun.get_gun_type().title()}")
 

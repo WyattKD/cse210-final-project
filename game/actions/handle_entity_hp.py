@@ -24,12 +24,16 @@ class HandleEntityHP(Action):
                 enemies_to_remove.append(enemy)
 
         for enemy in enemies_to_remove:
-            amount = randint(5, 10)
+            amount = randint(3, 7)
             for _ in range(amount):
                 coins.append(Coin(enemy.get_position()))
-            if randint(1,10) == 1:
+            random = randint(1,14)
+            print(random)
+            if random == 1:
+                print("yes")
                 cast["pickups"].append(HealthPickup(enemy.get_position()))
-            elif randint(1,10) == 1:
+            elif random == 2:
+                print("yes2")
                 cast["pickups"].append(WeaponPickup(enemy.get_position()))
             enemies.remove(enemy)
             enemies_defeated = int(enemies_defeated_text.get_text())

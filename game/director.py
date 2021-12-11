@@ -23,6 +23,7 @@ class Director:
         self._cast = cast
         self._script = script
         self._keep_playing = True
+        self._handle_gameover = self._script["output"][1]
         
     def start_game(self):
         """Starts the game loop to control the sequence of play."""
@@ -31,7 +32,7 @@ class Director:
             self._cue_action("update")
             self._cue_action("output")
 
-            if raylibpy.window_should_close():
+            if raylibpy.window_should_close() or self._handle_gameover.get_player_quit():
                 self._keep_playing = False
 
 

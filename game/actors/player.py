@@ -21,6 +21,13 @@ class Player(Actor):
         self._damage_time = 0
         self._is_dead = False
         self._is_crouched = False
+        self._direction = "left"
+
+    def set_direction(self, direction):
+        self._direction = direction
+
+    def get_direction(self):
+        return self._direction
 
     def set_is_crouched(self, status):
         self._is_crouched = status

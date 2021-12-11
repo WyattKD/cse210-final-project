@@ -23,7 +23,8 @@ class Coin(Actor):
         return False
 
     def random_velocity(self):
-        dx = randint(0, 1000) - self.get_position().get_x()
+        x1 = self.get_position().get_x() + randint(-500, 500)
+        dx = x1 - self.get_position().get_x()
         dy = randint(0, int(self.get_position().get_y())) - self.get_position().get_y()
 
         distance = sqrt(dx*dx + dy*dy)

@@ -3,12 +3,14 @@ from game.actions.action import Action
 from game.point import Point
 from game.actors.wall import Wall
 from game.actors.platform import Platform
+from game.actors.tutorial import Tutorial
 from game.actors.enemies.enemy import Enemy
 from game.actors.enemies.walker_enemy import Walker
 from game.actors.enemies.flyer_enemy import Flyer
 from game.actors.enemies.mover_enemy import Mover
 from random import randint
 from math import sqrt
+from game.actors.tutorial import Tutorial
 
 class GenerateRoomAction(Action):
 
@@ -34,8 +36,11 @@ class GenerateRoomAction(Action):
         rooms_cleared_text.set_text(str(rooms_cleared))
         self._old_choice = choice
 
-    def _generate_room_1(self, cast):
+    def generate_room_1(self, cast):
 
+        tutorial = Tutorial()
+        cast["tutorial"].append(tutorial)
+        
         self._default_walls(cast)
 
         self._block_bottom_door(cast)

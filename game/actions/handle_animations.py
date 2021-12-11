@@ -20,6 +20,8 @@ class HandleAnimations(Action):
         self._handle_coin_animation(cast)
         self._handle_enemy_animation(cast)
         self._handle_pickup_animation(cast)
+        self._handle_death_animation(cast)
+        self._handle_tutorial_animation(cast)
 
     def _handle_player_animation(self, cast):
         player = cast["players"][0]
@@ -33,6 +35,7 @@ class HandleAnimations(Action):
                 if self._player_iteration >= len(constants.WALK_ANIMATION):
                     self._player_iteration = 0
                 self._facing = "left"
+                player.set_direction("left")
             elif round(time(), 2) - self._player_frame_time > 0.2 and "d" in self._input_service.get_inputs():
                 player_legs.set_image(constants.WALK_ANIMATION2[self._player_iteration])
                 self._player_frame_time = round(time(), 2)
@@ -40,6 +43,7 @@ class HandleAnimations(Action):
                 if self._player_iteration >= len(constants.WALK_ANIMATION):
                     self._player_iteration = 0
                 self._facing = "right"
+                player.set_direction("right")
             
             if "1" not in self._input_service.get_inputs() and "2" not in self._input_service.get_inputs() and "3" not in self._input_service.get_inputs() and "4" not in self._input_service.get_inputs():
                 if self._facing == "left":
@@ -98,6 +102,19 @@ class HandleAnimations(Action):
                     enemy.set_frame_time()
                     enemy.set_frame_index(index)
 
+    def _handle_death_animation(self, cast):
+        if len(cast["player_parts"]) > 1:
+            dead_player = cast["player_parts"][1]
+            if round(time(), 2) - dead_player.get_frame_time() > 0.2:
+                animation = dead_player.get_animation()
+                index = dead_player.get_frame_index()
+                index += 1
+                if index >= len(animation):
+                    index = 8
+                dead_player.set_image(animation[index]) 
+                dead_player.set_frame_time()
+                dead_player.set_frame_index(index)
+
     def _handle_coin_animation(self, cast):
         coins = cast["coins"]
         for coin in coins:
@@ -124,6 +141,19 @@ class HandleAnimations(Action):
                         index = 0
                     pickup.set_image(animation[index]) 
                     pickup.set_frame_time()
+
+    def _handle_tutorial_animation(self, cast):
+        if len(cast["tutorial"]) > 0:
+            tutorial = cast["tutorial"][0]
+            if round(time(), 2) - tutorial.get_frame_time() > 0.2:
+                animation = tutorial.get_animation()
+                image = tutorial.get_image()
+                index = animation.index(image)
+                index += 1
+                if index >= len(animation):
+                    index = 0
+                tutorial.set_image(animation[index]) 
+                tutorial.set_frame_time()
                
         
         

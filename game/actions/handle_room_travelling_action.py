@@ -31,6 +31,7 @@ class HandleRoomTravellingAction(Action):
             cast["pickups"] = []
             cast["bullets"] = []
             cast["enemies"] = []
+            cast["tutorial"] = []
             self._doors = ["wall", "wall", "wall", "wall"]
             if x < 20:
                 x = 954
