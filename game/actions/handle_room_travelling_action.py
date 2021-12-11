@@ -40,7 +40,7 @@ class HandleRoomTravellingAction(Action):
                 x = 7
                 self._doors[0] = "open"
             elif y < 20:
-                y = 720
+                y = 670
                 self._doors[3] = "open"
             elif y > 760:
                 y = 10

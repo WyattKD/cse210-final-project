@@ -5,17 +5,18 @@ from time import time
 
 class Walker(Enemy):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, extra_hp, extra_speed):
         super().__init__(x, y)
         self.set_width(constants.WALKER_WIDTH)
         self.set_height(constants.WALKER_HEIGHT)
-        self.set_hp(5)
+        self.set_hp(5 + extra_hp)
         self._cooldown_time = round(time(), 2)
         self._jump_time = round(time(), 2)
         self._is_jumping = False
         self.set_animation(constants.WALKER_ANIMATION)
         self.set_image(constants.WALKER_ANIMATION_1)
         self.switch_animation()
+        self._extra_speed = extra_speed
 
     def switch_animation(self):
         
@@ -34,9 +35,9 @@ class Walker(Enemy):
         
 
         if player_x > walker_x:
-            self.set_velocity(Point(constants.WALKER_SPEED, dy))
+            self.set_velocity(Point((constants.WALKER_SPEED + self._extra_speed), dy))
         elif player_x < walker_x:
-            self.set_velocity(Point(-1 * constants.WALKER_SPEED, dy))
+            self.set_velocity(Point(-1 * (constants.WALKER_SPEED + self._extra_speed), dy))
         else:
             self.set_velocity(Point(0, dy))
          

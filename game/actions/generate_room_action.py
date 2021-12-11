@@ -83,13 +83,14 @@ class GenerateRoomAction(Action):
         else:
             self._spawn_flyers(cast, 3, "top_right")
         
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         if randint(1, 2) == 1:
             path = [Point(475,100), Point(275, 300), Point(475,500), Point(675, 300)]
-            enemy = Mover(500, 400, path, True)
+            enemy = Mover(500, 400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         else:
             path = [Point(475,500), Point(675, 300), Point(475,100), Point(275, 300)]
-            enemy = Mover(500, 400, path, True)
+            enemy = Mover(500, 400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
     def _generate_room_3(self, cast, doors):
@@ -119,14 +120,15 @@ class GenerateRoomAction(Action):
         else:
             self._spawn_flyers(cast, 4, "center")
 
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         if randint(1, 2) == 1:
             path = [Point(50, 50), Point(50, 650), Point(850, 650), Point(850, 50)]
-            enemy = Mover(500,400, path, True)
+            enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
         if randint(1, 2) == 1:
             path = [Point(850, 650), Point(850, 50), Point(50, 50), Point(50, 650)]
-            enemy = Mover(500,400, path, True)
+            enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
             
     def _generate_room_4(self, cast, doors):
@@ -147,26 +149,26 @@ class GenerateRoomAction(Action):
             self._multi_short(cast, "triple_standard", self._three_jump_height)
             self._multi_short(cast, "triple_standard", self._four_jump_height)
         self._multi_short(cast, "center", self._four_jump_height)
-
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         if randint(1, 2) == 1:
             path = [Point(130, 50), Point(130, 400), Point(130, 650)]
-            enemy = Mover(155,400, path, False)
+            enemy = Mover(155,400, path, False, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
             path = [Point(450, 50), Point(450, 400), Point(450, 650)]
-            enemy = Mover(475,400, path, False)
+            enemy = Mover(475,400, path, False, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
             path = [Point(770, 50), Point(770, 400), Point(770, 650)]
-            enemy = Mover(795,400, path, False)
+            enemy = Mover(795,400, path, False, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
         path = [Point(50, 50), Point(50, 650), Point(850, 650), Point(850, 50)]
-        enemy = Mover(500,400, path, True)
+        enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
         path = [Point(850, 650), Point(850, 50), Point(50, 50), Point(50, 650)]
-        enemy = Mover(500,400, path, True)
+        enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
     def _generate_room_5(self, cast, doors):
@@ -196,12 +198,13 @@ class GenerateRoomAction(Action):
         if randint(1, 2) == 1:
             self._spawn_walkers(cast, 2, "bottom_left")
 
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         path = [Point(50, 50), Point(850, 650)]
-        enemy = Mover(500,400, path, True)
+        enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
         path = [Point(850, 50), Point(50, 650)]
-        enemy = Mover(500,400, path, True)
+        enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
         
     def _generate_room_6(self, cast, doors):
@@ -289,12 +292,13 @@ class GenerateRoomAction(Action):
         else:
             self._spawn_flyers(cast, 2, "bottom_left")
 
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         path = [Point(415, 50), Point(415, 650)]
-        enemy = Mover(440,400, path, True)
+        enemy = Mover(440,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
         path = [Point(490, 650), Point(490, 50)]
-        enemy = Mover(515,400, path, True)
+        enemy = Mover(515,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
     def _generate_room_8(self, cast, doors):
@@ -330,12 +334,13 @@ class GenerateRoomAction(Action):
         else:
             self._spawn_flyers(cast, 2, "top_left")
 
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         path = [Point(450, 50), Point(450, 650)]
-        enemy = Mover(440,400, path, True)
+        enemy = Mover(440,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
         path = [Point(50, 350), Point(850, 350)]
-        enemy = Mover(515,400, path, True)
+        enemy = Mover(515,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
     def _generate_room_9(self, cast, doors):
@@ -366,29 +371,34 @@ class GenerateRoomAction(Action):
         else:
             self._multi_short(cast, "right_wall", self._four_jump_height)
 
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         path = [Point(50, 50), Point(850, 50), Point(850, 650), Point(50, 650)]
-        enemy = Mover(500,400, path, True)
+        enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
         path = [Point(850, 650), Point(50, 650), Point(50, 50), Point(850, 50)]
-        enemy = Mover(500,400, path, True)
+        enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
         cast["enemies"].append(enemy)
 
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 560), Point(850, 560)]
-            enemy = Mover(300, 400, path, True)
+            enemy = Mover(300, 400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 420), Point(850, 420)]
-            enemy = Mover(500, 445, path, True)
+            enemy = Mover(500, 445, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 280), Point(850, 280)]
-            enemy = Mover(500, 305, path, True)
+            enemy = Mover(500, 305, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 140), Point(850, 140)]
-            enemy = Mover(500, 165, path, True)
+            enemy = Mover(500, 165, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
     def _generate_room_10(self, cast, doors):
@@ -463,12 +473,14 @@ class GenerateRoomAction(Action):
         else:
             self._multi_short(cast, "triple_medium", self._four_jump_height)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(223, 190), Point(676, 190), Point(676, 510), Point(223, 510)]
-            enemy = Mover(500,200, path, True)
+            enemy = Mover(500,200, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(223, 510), Point(676, 510), Point(676, 190), Point(223, 190)]
-            enemy = Mover(500,400, path, True)
+            enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2):
             self._spawn_walkers(cast, randint(1,3), "bottom_left")
@@ -509,12 +521,14 @@ class GenerateRoomAction(Action):
         else:
             self._multi_short(cast, "triple_standard", self._four_jump_height)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 50), Point(850, 50)]
-            enemy = Mover(500,200, path, True)
+            enemy = Mover(500,200, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 650), Point(850, 650)]
-            enemy = Mover(500,400, path, True)
+            enemy = Mover(500,400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
         if randint(1, 2):
@@ -556,12 +570,14 @@ class GenerateRoomAction(Action):
         self._multi_short(cast, "center", self._four_jump_height)
 
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(50, 350), Point(90, 350)]
-            enemy = Mover(600,300, path, True)
+            enemy = Mover(600,300, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(810, 350), Point(850, 350)]
-            enemy = Mover(400,500, path, True)
+            enemy = Mover(400,500, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
         self._spawn_flyers(cast, randint(2,4), "center")
@@ -603,12 +619,14 @@ class GenerateRoomAction(Action):
 
         
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(220, 350), Point(680, 350)]
-            enemy = Mover(500,390, path, True)
+            enemy = Mover(500,390, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(450, 50), Point(450, 650)]
-            enemy = Mover(500,410, path, True)
+            enemy = Mover(500,410, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
             
         self._spawn_flyers(cast, randint(2,4), "center")
@@ -656,12 +674,14 @@ class GenerateRoomAction(Action):
             self._multi_short(cast, "right_wall", self._four_jump_height)
         
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(130, 650), Point(130, 50)]
-            enemy = Mover(155,400, path, True)
+            enemy = Mover(155,400, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
         if randint(1, 2) == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
             path = [Point(770, 50), Point(770, 650)]
-            enemy = Mover(795,100, path, True)
+            enemy = Mover(795,100, path, True, bonus_hp, bonus_speed)
             cast["enemies"].append(enemy)
 
         self._spawn_walkers(cast, randint(2,4), "center")
@@ -697,14 +717,16 @@ class GenerateRoomAction(Action):
         return x, y
 
     def _spawn_walkers(self, cast, amount, area):
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         for _ in range(amount):
             x, y = self._spawn_randomly(cast, area)
-            cast["enemies"].append(Walker(x, y))
+            cast["enemies"].append(Walker(x, y, bonus_hp, bonus_speed))
 
     def _spawn_flyers(self, cast, amount, area):
+        bonus_hp, bonus_speed = self._determine_difficulty(cast)
         for _ in range(amount):
             x, y = self._spawn_randomly(cast, area)
-            cast["enemies"].append(Flyer(x, y))
+            cast["enemies"].append(Flyer(x, y, bonus_hp, bonus_speed))
 
     def _default_walls(self, cast):
         # Top left segment
@@ -857,3 +879,10 @@ class GenerateRoomAction(Action):
             pass
         else:
             self._block_bottom_door(cast)
+
+    def _determine_difficulty(self, cast):
+        rooms_cleared_text = cast["UI"][5]
+        multiplier = int(rooms_cleared_text.get_text()) // 5
+        bonus_hp = 0.25 * multiplier
+        bonus_speed = 0.10 * multiplier
+        return bonus_hp, bonus_speed

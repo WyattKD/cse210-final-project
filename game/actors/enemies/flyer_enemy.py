@@ -5,9 +5,9 @@ from math import sqrt
 
 class Flyer(Enemy):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, extra_hp, extra_speed):
         super().__init__(x, y)
-        self.set_hp(3)
+        self.set_hp(3 + extra_hp)
         self.set_gravity(False)
         self.set_width(constants.FLYER_WIDTH)
         self.set_height(constants.FLYER_HEIGHT)
@@ -15,6 +15,7 @@ class Flyer(Enemy):
         self.set_animation(constants.FLYER_ANIMATION)
         self.set_image(constants.FLYER_ANIMATION_1)
         self.switch_animation()
+        self._extra_speed = extra_speed
 
     def switch_animation(self):
         if self.get_velocity().get_x() > 0:
@@ -32,7 +33,6 @@ class Flyer(Enemy):
         dx /= distance
         dy /= distance
 
-        dx *= constants.FLYER_SPEED
-        dy *= constants.FLYER_SPEED
-
+        dx *= (constants.FLYER_SPEED + self._extra_speed)
+        dy *= (constants.FLYER_SPEED + self._extra_speed)
         self.set_velocity(Point(dx, dy))

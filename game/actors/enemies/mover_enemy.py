@@ -5,9 +5,9 @@ from math import sqrt
 
 class Mover(Enemy):
 
-    def __init__(self, x, y, path, circular):
+    def __init__(self, x, y, path, circular, extra_hp, extra_speed):
         super().__init__(x, y)
-        self.set_hp(7)
+        self.set_hp(7 + extra_hp)
         self.set_gravity(False)
         self.set_width(constants.MOVER_WIDTH)
         self.set_height(constants.MOVER_HEIGHT)
@@ -18,7 +18,7 @@ class Mover(Enemy):
         self._going_down = False
         self.set_animation(constants.MOVER_ANIMATION)
         self.set_image(constants.MOVER_ANIMATION_1)
-    
+        self._extra_speed = extra_speed
 
     def move(self, player):
         self._current_point = self._path[self._iteration]
@@ -30,8 +30,8 @@ class Mover(Enemy):
             dx /= distance
             dy /= distance
 
-        dx *= constants.MOVER_SPEED
-        dy *= constants.MOVER_SPEED
+        dx *= (constants.MOVER_SPEED + self._extra_speed)
+        dy *= (constants.MOVER_SPEED + self._extra_speed)
 
         self.set_velocity(Point(dx, dy))
 
