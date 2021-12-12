@@ -19,6 +19,8 @@ class Mover(Enemy):
         self.set_animation(constants.MOVER_ANIMATION)
         self.set_image(constants.MOVER_ANIMATION_1)
         self._extra_speed = extra_speed
+        self.set_sound(constants.MOVER_DEATH_SOUND)
+        self.set_volume(4.0)
 
     def move(self, player):
         self._current_point = self._path[self._iteration]

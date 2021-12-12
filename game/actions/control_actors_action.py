@@ -7,13 +7,15 @@ from random import randint
 
 class ControlActorsAction(Action):
 
-    def __init__(self, input_service):
+    def __init__(self, input_service, audio_service):
         super().__init__()
         self._input_service = input_service
+        self._audio_service = audio_service
         self._jump_time = round(time(), 2)
         self._shoot_time = round(time(), 2)
         self._bullet_time = round(time(), 2)
         self._inputs = ["", "", ""]
+        self._sound_time = round(time(), 2)
         
 
     def execute(self, cast):
@@ -58,6 +60,7 @@ class ControlActorsAction(Action):
 
     def _player_jump(self, player):
         if "w" in self._input_service.get_inputs() and player.get_is_on_ground():
+            self._audio_service.play_sound(constants.JUMP_SOUND, 0.5)
             player.set_is_jumping(True)
             self._jump_time = round(time(), 2)
         if "w" in self._input_service.get_inputs() and round(time(), 2) - self._jump_time  <= constants.JUMP_TIME:
@@ -73,6 +76,8 @@ class ControlActorsAction(Action):
             time_between_shots = stats[4]
             num_bullets = stats[5]
             time_between_bullets = stats[9]
+            bullet_sound = stats[11]
+            bullet_volume = stats[12]
             self._inputs.append(self._input_service.get_inputs())
             self._inputs.pop(0)
             if any(char.isdigit() for char in self._inputs[0]) and any(char.isdigit() for char in self._inputs[1]) and any(char.isdigit() for char in self._inputs[2]):
@@ -82,41 +87,65 @@ class ControlActorsAction(Action):
                     x = player.get_position().get_x()
                     y = player.get_position().get_y()
                     if "13" in self._inputs[0] or "13" in self._inputs[1] or "13" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("leftup", x - 10, y + 20, stats))
-                            bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
+                            bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets) 
                         self._shoot_time = round(time(), 2)
                     elif "14" in self._inputs[0] or  "14" in self._inputs[1] or "14" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("leftdown", x - 16, y - 20 + constants.PLAYER_HEIGHT, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "23" in self._inputs[0] or "23" in self._inputs[1] or "23" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("rightup", x + constants.PLAYER_WIDTH + 10, y + 20, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "24" in self._inputs[0] or "24" in self._inputs[1] or "24" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("rightdown", x + constants.PLAYER_WIDTH + 16, y + constants.PLAYER_HEIGHT - 20, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "1" in self._inputs[0] or "1" in self._inputs[1] or "1" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("left", x - 10, y + constants.PLAYER_HEIGHT/2 - 7, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "2" in self._inputs[0] or "2" in self._inputs[1] or "2" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("right", x + constants.PLAYER_WIDTH + 5, y + constants.PLAYER_HEIGHT/2 - 7, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "3" in self._inputs[0] or "3" in self._inputs[1] or "3" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("up", x + constants.PLAYER_WIDTH/2 - 3, y + 10, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)
                         self._shoot_time = round(time(), 2)
                     elif "4" in self._inputs[0] or "4" in self._inputs[1] or "4" in self._inputs[2]:
+                        if bullet_sound != "" and round(time(), 2) - self._sound_time > 0.1:
+                            self._sound_time = round(time(), 2)
+                            self._audio_service.play_sound(bullet_sound, bullet_volume)
                         for shots in range(num_bullets):
                             bullets.append(Bullet("down", x + constants.PLAYER_WIDTH/2, y - 13 + constants.PLAYER_HEIGHT, stats))
                             bullets[-1].bullet_step((num_bullets - (shots + 1)) * time_between_bullets)

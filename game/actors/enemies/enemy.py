@@ -16,6 +16,21 @@ class Enemy(Actor):
         self._is_on_ground = False
         self._is_crouched = False
         self._type = "enemy"
+        self._sound = constants.ENEMY_DEATH_SOUND
+        self._volume = 1.0
+
+
+    def set_volume(self, volume):
+        self._volume = volume
+
+    def get_volume(self):
+        return self._volume
+
+    def set_sound(self, sound):
+        self._sound = sound
+
+    def get_sound(self):
+        return self._sound
 
     def switch_animation(self):
             pass

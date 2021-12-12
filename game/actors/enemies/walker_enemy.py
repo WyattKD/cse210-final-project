@@ -17,6 +17,8 @@ class Walker(Enemy):
         self.set_image(constants.WALKER_ANIMATION_1)
         self.switch_animation()
         self._extra_speed = extra_speed
+        self.set_sound(constants.WALKER_DEATH_SOUND)
+        self.set_volume(2.0)
 
     def switch_animation(self):
         

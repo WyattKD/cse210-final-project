@@ -1,3 +1,4 @@
+from ntpath import realpath
 import sys
 from game.point import Point
 import raylibpy
@@ -19,7 +20,7 @@ class AudioService:
         """
         self._sounds = {}
         
-    def play_sound(self, filename):
+    def play_sound(self, filename, volume=1.0):
         """
         Plays the sound file provided. Make sure to call start_audio before this is called.
         """
@@ -28,7 +29,12 @@ class AudioService:
             self._sounds[filename] = loaded
 
         sound = self._sounds[filename]
+        raylibpy.set_sound_volume(sound, volume)
         raylibpy.play_sound(sound)
+
+    def stop_sound(self, filename):
+        sound = self._sounds[filename]
+        raylibpy.stop_sound(sound)
 
     def start_audio(self):
         """

@@ -6,7 +6,7 @@ import raylibpy
 
 class Player(Actor):
 
-    def __init__(self):
+    def __init__(self, audio_service):
         super().__init__()
         self.set_width(constants.PLAYER_WIDTH)
         self.set_height(constants.PLAYER_HEIGHT)
@@ -22,6 +22,7 @@ class Player(Actor):
         self._is_dead = False
         self._is_crouched = False
         self._direction = "left"
+        self._audio_service = audio_service
 
     def set_direction(self, direction):
         self._direction = direction
@@ -69,6 +70,8 @@ class Player(Actor):
         if round(time(), 2) - self._damage_time  >= constants.INVINCIBLE_TIME:
             self._damage_time = round(time(), 2)
             self.set_hp(self.get_hp() - 1)
+            if not self.get_is_dead():
+                self._audio_service.play_sound(constants.PLAYER_DAMAGE_SOUND, 1.5)
 
     def determine_damage_status(self):
         if self.get_hp() <= 0:

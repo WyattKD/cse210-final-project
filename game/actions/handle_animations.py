@@ -27,8 +27,13 @@ class HandleAnimations(Action):
         player = cast["players"][0]
         player_legs = cast["player_parts"][0]
         player_legs.set_position(player.get_position())
+        
         if not player.get_is_dead():
-            if round(time(), 2) - self._player_frame_time > 0.2 and "a" in self._input_service.get_inputs():
+            if player.get_is_jumping() and self._facing == "left":
+                player_legs.set_image(constants.WALK_ANIMATION[1])
+            elif player.get_is_jumping() and self._facing == "right":
+                player_legs.set_image(constants.WALK_ANIMATION2[1])
+            elif round(time(), 2) - self._player_frame_time > 0.2 and "a" in self._input_service.get_inputs():
                 player_legs.set_image(constants.WALK_ANIMATION[self._player_iteration])
                 self._player_frame_time = round(time(), 2)
                 self._player_iteration += 1

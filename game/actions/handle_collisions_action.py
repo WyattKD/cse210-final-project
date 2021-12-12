@@ -1,16 +1,18 @@
 from game import constants
 from game.actions.action import Action
 from game.point import Point
-
+from time import time
 
 class HandleCollisionsAction(Action):
 
-    def __init__(self, physics_service):
+    def __init__(self, physics_service, audio_service):
         super().__init__()
         self._physics_service = physics_service
         self._player_on_ground = False
         self._enemy_on_wall = False
         self._player_on_ceiling = False
+        self._audio_service = audio_service
+        self._damage_time = round(time(),2)
 
 
     def execute(self, cast):
@@ -115,6 +117,9 @@ class HandleCollisionsAction(Action):
             for enemy in cast ["enemies"]:
                 if self._physics_service.is_collision(bullet, enemy):
                     enemy.take_damage(damage)
+                    if round(time(), 2) - self._damage_time > 0.15:
+                        self._audio_service.play_sound(constants.ENEMY_DAMAGE_SOUND, 0.5)
+                        self._damage_time = round(time(), 2)
                     bullets_to_remove.append(bullet)
         for bullet in bullets_to_remove:
             if bullet in cast["bullets"]:
@@ -126,6 +131,7 @@ class HandleCollisionsAction(Action):
         for enemy in enemies:
             if self._physics_service.is_collision(player, enemy):
                 player.take_damage()
+                    
 
     def _handle_entity_platform(self, entity, platform):
             x, y, px, py = self._update_entity_position(entity)
@@ -149,6 +155,7 @@ class HandleCollisionsAction(Action):
             if self._physics_service.is_collision(player, coin):
                 coins_to_remove.append(coin)
         for coin in coins_to_remove:
+            self._audio_service.play_sound(constants.COIN_SOUND, 0.5)
             coins.remove(coin)
             gold = int(gold_count.get_text())
             gold += 1

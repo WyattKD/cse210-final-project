@@ -7,8 +7,9 @@ from random import randint, choice
 
 class HandleRoomTravellingAction(Action):
 
-    def __init__(self):
+    def __init__(self, audio_service):
         super().__init__()
+        self._audio_service = audio_service
         self._generate_room_action = GenerateRoomAction()
         self._doors = ["wall", "door", "wall", "wall"]
         self._door_closed = True
@@ -89,6 +90,7 @@ class HandleRoomTravellingAction(Action):
                     doors_to_remove.append(wall)
             for door in doors_to_remove:
                 walls.remove(door)
+                self._audio_service.play_sound(constants.DOOR_SOUND)
 
     def _randomize_colors(self, cast):
         walls = cast["walls"]

@@ -4,9 +4,10 @@ from game.point import Point
 from random import choice
 class HandlePickups(Action):
 
-    def __init__(self, physics_service):
+    def __init__(self, physics_service, audio_service):
         super().__init__()
         self._physics_service = physics_service
+        self._audio_service = audio_service
 
     def execute(self, cast):
         self._handle_health_pickup(cast)
@@ -22,6 +23,7 @@ class HandlePickups(Action):
                 pickups_to_remove.append(pickup)
         for pickup in pickups_to_remove:
             pickups.remove(pickup)
+            self._audio_service.play_sound(constants.HEALTH_SOUND)
 
                 
 
@@ -37,5 +39,6 @@ class HandlePickups(Action):
                 pickups_to_remove.append(pickup)
         for pickup in pickups_to_remove:
             pickups.remove(pickup)
+            self._audio_service.play_sound(constants.WEAPON_SOUND)
         weapon_text.set_text(f"{gun.get_gun_type().title()}")
 

@@ -7,8 +7,9 @@ from game.actors.health_pickup import HealthPickup
 from game.actors.weapon_pickup import WeaponPickup
 class HandleEntityHP(Action):
 
-    def __init__(self):
+    def __init__(self, audio_service):
         super().__init__()
+        self._audio_service = audio_service
 
     def execute(self, cast):
         self._handle_enemy_hp(cast)
@@ -33,6 +34,7 @@ class HandleEntityHP(Action):
             elif random == 2:
                 cast["pickups"].append(WeaponPickup(enemy.get_position()))
             enemies.remove(enemy)
+            self._audio_service.play_sound(enemy.get_sound(), enemy.get_volume())
             enemies_defeated = int(enemies_defeated_text.get_text())
             enemies_defeated += 1
             enemies_defeated_text.set_text(str(enemies_defeated))

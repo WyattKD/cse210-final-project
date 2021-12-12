@@ -41,23 +41,24 @@ from game.actions.handle_pickups import HandlePickups
 from game.actions.handle_animations import HandleAnimations
 from game.actions.update_ui import UpdateUI
 from game.actions.handle_gameover import HandleGameover
+from game.actions.handle_music import HandleMusic
 
 def main():
 
     # create the cast {key: tag, value: list}
     cast = {}
-
+    audio_service = AudioService()
     background = Background()
     cast["background"] = [background]
     cast["tutorial"] = []
     player_legs = PlayerLegs()
     cast["player_parts"] = [player_legs]
-    player = Player()
+    player = Player(audio_service)
     cast["players"] = [player]
-    
+
     gun = Gun()
     gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst rifle", "minigun", "machinegun", "dual pistol", "bubble"]))
-    #gun.set_gun_type("minigun")
+    gun.set_gun_type("rifle")
     cast["guns"] = [gun]
     cast["bullets"] = []
     cast["coins"] = []
@@ -93,25 +94,26 @@ def main():
     input_service = InputService()
     output_service = OutputService()
     physics_service = PhysicsService()
-    audio_service = AudioService()
+    
 
     draw_actors_action = DrawActorsAction(output_service)
     move_actors_action = MoveActorsAction()
-    control_actors_action = ControlActorsAction(input_service)
-    handle_collisions_action = HandleCollisionsAction(physics_service)
+    control_actors_action = ControlActorsAction(input_service, audio_service)
+    handle_collisions_action = HandleCollisionsAction(physics_service, audio_service)
     handle_off_screen_action = HandleOffScreenAction()
-    handle_entity_hp = HandleEntityHP()
+    handle_entity_hp = HandleEntityHP(audio_service)
     handle_enemy_movement = HandleEnemyMovement()
     handle_bullet_timeout_action = HandleBulletTimeoutAction()
     prevent_enemy_overlap_action = PreventEnemyOverlapAction(physics_service)
     handle_coins_action = HandleCoinsAction()
-    handle_room_travelling_action = HandleRoomTravellingAction()
-    handle_pickups = HandlePickups(physics_service)
+    handle_room_travelling_action = HandleRoomTravellingAction(audio_service)
+    handle_pickups = HandlePickups(physics_service, audio_service)
     handle_animations = HandleAnimations(input_service)
     update_ui = UpdateUI()
-    handle_gameover = HandleGameover(input_service)
+    handle_gameover = HandleGameover(input_service, audio_service)
+    handle_music = HandleMusic(audio_service)
 
-    script["input"] = [control_actors_action]
+    script["input"] = [control_actors_action, handle_music]
     script["update"] = [move_actors_action, handle_collisions_action, handle_off_screen_action, handle_entity_hp, handle_enemy_movement, handle_bullet_timeout_action, prevent_enemy_overlap_action, handle_coins_action, handle_room_travelling_action, handle_pickups]
     script["output"] = [update_ui, handle_gameover, handle_animations,  draw_actors_action]
 
@@ -120,8 +122,14 @@ def main():
     # Start the game
     output_service.open_window("Game")
     audio_service.start_audio()
-    
+    raylibpy.set_master_volume(0.05)
+    #music = raylibpy.load_music_stream(constants.MUSIC)
+    #raylibpy.play_music_stream(music)
+    icon = raylibpy.load_image(constants.ICON)
+    raylibpy.set_window_icon(icon)
+
     director = Director(cast, script)
+    
     director.start_game()
 
     audio_service.stop_audio()

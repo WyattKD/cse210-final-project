@@ -11,9 +11,10 @@ import raylibpy
 
 class HandleGameover(Action):
 
-    def __init__(self, input_service):
+    def __init__(self, input_service, audio_service):
         super().__init__()
         self._input_service = input_service
+        self._audio_service = audio_service
         self._selection = ""
         self._generate_room = GenerateRoomAction()
         self._time = round(time(), 2)
@@ -30,9 +31,11 @@ class HandleGameover(Action):
             if player.get_direction() == "right" and len(cast["player_parts"]) <= 1:
                 dead_player = DeadPlayer(Point(player.get_position().get_x() - 30, player.get_position().get_y()), constants.RIGHT_DEATH_ANIMATION)
                 cast["player_parts"].append(dead_player)
+                self._audio_service.play_sound(constants.PLAYER_DEATH_SOUND)
             elif player.get_direction() == "left" and len(cast["player_parts"]) <= 1:
                 dead_player = DeadPlayer(Point(player.get_position().get_x()- 30, player.get_position().get_y()), constants.LEFT_DEATH_ANIMATION)
                 cast["player_parts"].append(dead_player)
+                self._audio_service.play_sound(constants.PLAYER_DEATH_SOUND)
             else:
                 dead_player = cast["player_parts"][1]
                 dead_player.set_position(Point(player.get_position().get_x()- 30, player.get_position().get_y()))
@@ -70,14 +73,20 @@ class HandleGameover(Action):
         if player.get_is_dead() and len(cast["gameover_card"]) > 0:
             gameover_card = cast["gameover_card"][0]
             if "1" in self._input_service.get_inputs():
+                if self._selection != "retry":
+                    self._audio_service.play_sound(constants.SELECT_SOUND)
                 gameover_card.set_image(constants.GAMEOVER_2)
                 self._selection = "retry"
             elif "2" in self._input_service.get_inputs():
+                if self._selection != "quit":
+                    self._audio_service.play_sound(constants.SELECT_SOUND)
                 gameover_card.set_image(constants.GAMEOVER_3)
                 self._selection = "quit"
             if "e" in self._input_service.get_inputs() and self._selection == "retry":
+                self._audio_service.play_sound(constants.ENTER_SOUND)
                 self.reset_game(cast)
             elif "e" in self._input_service.get_inputs() and self._selection == "quit":
+                self._audio_service.play_sound(constants.ENTER_SOUND)
                 self._player_quit = True
 
     def reset_game(self, cast):

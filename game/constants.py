@@ -216,3 +216,31 @@ TUTORIAL_HEIGHT = 240
 GAMEOVER_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/gameover1.png")
 GAMEOVER_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/gameover2.png")
 GAMEOVER_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/gameover3.png")
+
+ICON = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/icon.png")
+
+COIN_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/coin_pickup.wav")
+DOOR_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/door_open.wav")
+ENEMY_DAMAGE_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_damage.wav")
+HEALTH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/health_pickup.wav")
+WEAPON_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/weapon_pickup.wav")
+PLAYER_DAMAGE_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/player_damage.wav")
+PLAYER_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/player_death.wav")
+JUMP_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/jump.wav")
+ENEMY_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death.wav")
+MOVER_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death2.wav")
+WALKER_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death3.wav")
+
+SHOOT_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot.wav")
+LASER_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot2.wav")
+SHOTGUN_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot3.wav")
+SNIPER_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot4.wav")
+MINIGUN_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot5.wav")
+LASER_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot6.wav")
+BUBBLE_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot7.wav")
+RIFLE_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot8.wav")
+
+SELECT_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/menu1.wav")
+ENTER_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/menu2.wav")
+
+MUSIC = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/bg_music.ogg")
