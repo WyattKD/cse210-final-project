@@ -1,5 +1,5 @@
 # cse210-final-project
 
-Music: patrickdearteaga.com
+Music: https://patrickdearteaga.com/
 
-Sounds: opengameart.org
+Sounds: https://opengameart.org/content/512-sound-effects-8-bit-style
