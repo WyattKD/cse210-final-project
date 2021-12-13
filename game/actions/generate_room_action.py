@@ -4,7 +4,6 @@ from game.point import Point
 from game.actors.wall import Wall
 from game.actors.platform import Platform
 from game.actors.tutorial import Tutorial
-from game.actors.enemies.enemy import Enemy
 from game.actors.enemies.walker_enemy import Walker
 from game.actors.enemies.flyer_enemy import Flyer
 from game.actors.enemies.mover_enemy import Mover

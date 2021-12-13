@@ -1,6 +1,4 @@
-from game import constants
 from game.actions.action import Action
-from game.point import Point
 from random import randint
 from game.actors.coin import Coin
 from game.actors.health_pickup import HealthPickup

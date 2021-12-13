@@ -1,9 +1,8 @@
 from game.actors.actor import Actor
 from game.point import Point
 from game import constants
-from time import time
 from random import uniform
-from math import sqrt
+
 class Bullet(Actor):
 
     def __init__(self, direction, x, y, stats):

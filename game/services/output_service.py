@@ -1,4 +1,3 @@
-import sys
 from game import constants
 import raylibpy
 

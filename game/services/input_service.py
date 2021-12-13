@@ -1,5 +1,3 @@
-import sys
-from game.point import Point
 import raylibpy
 
 class InputService:

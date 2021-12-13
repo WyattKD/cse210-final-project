@@ -1,6 +1,3 @@
-from ntpath import realpath
-import sys
-from game.point import Point
 import raylibpy
 
 class AudioService:

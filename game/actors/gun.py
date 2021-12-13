@@ -1,5 +1,4 @@
 from game.actors.actor import Actor
-from game.point import Point
 from game import constants
 import raylibpy
 

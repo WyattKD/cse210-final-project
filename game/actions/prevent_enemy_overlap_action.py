@@ -1,4 +1,3 @@
-from game import constants
 from game.actions.action import Action
 from game.point import Point
 from math import sqrt
@@ -27,4 +26,4 @@ class PreventEnemyOverlapAction(Action):
                     dy /= distance
                     ndx = (dx2 - dx)/2
                     ndy = (dy2 - dy)/2
-                    enemy2.set_velocity(Point(ndx, ndy))
+                    enemy2.set_velocity(Point(ndx, dy2))

@@ -3,7 +3,6 @@ from game.actions.action import Action
 from game.point import Point
 from game.actors.bullet import Bullet
 from time import time
-from random import randint
 
 class ControlActorsAction(Action):
 

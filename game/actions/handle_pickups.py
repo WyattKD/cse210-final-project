@@ -1,7 +1,5 @@
 from game import constants
 from game.actions.action import Action
-from game.point import Point
-from random import choice
 class HandlePickups(Action):
 
     def __init__(self, physics_service, audio_service):

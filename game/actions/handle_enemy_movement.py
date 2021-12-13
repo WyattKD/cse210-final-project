@@ -1,6 +1,4 @@
-from game import constants
 from game.actions.action import Action
-from game.point import Point
 
 class HandleEnemyMovement(Action):
 

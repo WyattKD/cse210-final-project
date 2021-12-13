@@ -58,7 +58,7 @@ def main():
 
     gun = Gun()
     gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst rifle", "minigun", "machinegun", "dual pistol", "bubble"]))
-    gun.set_gun_type("rifle")
+    #gun.set_gun_type("rifle")
     cast["guns"] = [gun]
     cast["bullets"] = []
     cast["coins"] = []

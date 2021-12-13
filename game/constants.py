@@ -1,5 +1,6 @@
 import os
 import raylibpy
+
 MAX_X = 1000
 MAX_Y = 800
 FRAME_RATE = 60
