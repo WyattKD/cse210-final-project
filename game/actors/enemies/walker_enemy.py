@@ -16,6 +16,7 @@ class Walker(Enemy):
         self.set_animation(constants.WALKER_ANIMATION)
         self.set_image(constants.WALKER_ANIMATION_1)
         self.switch_animation()
+        self._speed = constants.WALKER_SPEED
         self._extra_speed = extra_speed
         self.set_sound(constants.WALKER_DEATH_SOUND)
         self.set_volume(2.0)
@@ -37,9 +38,9 @@ class Walker(Enemy):
         
 
         if player_x > walker_x:
-            self.set_velocity(Point((constants.WALKER_SPEED + self._extra_speed), dy))
+            self.set_velocity(Point((self._speed + self._extra_speed), dy))
         elif player_x < walker_x:
-            self.set_velocity(Point(-1 * (constants.WALKER_SPEED + self._extra_speed), dy))
+            self.set_velocity(Point(-1 * (self._speed + self._extra_speed), dy))
         else:
             self.set_velocity(Point(0, dy))
          

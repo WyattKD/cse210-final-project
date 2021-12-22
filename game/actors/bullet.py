@@ -2,11 +2,13 @@ from game.actors.actor import Actor
 from game.point import Point
 from game import constants
 from random import uniform
+from math import sqrt
 
 class Bullet(Actor):
 
-    def __init__(self, direction, x, y, stats):
+    def __init__(self, direction, x, y, stats, x1=0, y1=0, owner="player"):
         super().__init__()
+        self._owner = owner
         bullet_width = stats[0]
         bullet_height = stats[1]
         bullet_color = stats[2]
@@ -43,6 +45,15 @@ class Bullet(Actor):
         elif direction == "rightdown":
             spread = uniform(-1 * bullet_spread, bullet_spread)/2
             self.set_velocity(Point(bullet_speed/2 - spread, bullet_speed/2 + spread))
+        elif direction == "player":
+            dx = x1 - x
+            dy = y1 - y
+            distance = sqrt(dx*dx + dy*dy)
+            dx /= distance
+            dy /= distance
+            dx *= bullet_speed
+            dy *= bullet_speed
+            self.set_velocity(Point(dx, dy))
 
     def get_spawn_point(self):
         return self._spawn_point
@@ -53,3 +64,6 @@ class Bullet(Actor):
         bx = self.get_position().get_x()
         by = self.get_position().get_y()  
         self.set_position(Point((bx + dx) % constants.MAX_X, (by + dy) % constants.MAX_Y))
+
+    def get_owner(self):
+        return self._owner

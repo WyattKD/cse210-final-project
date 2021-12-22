@@ -16,6 +16,7 @@ class Flyer(Enemy):
         self.set_image(constants.FLYER_ANIMATION_1)
         self.switch_animation()
         self._extra_speed = extra_speed
+        self._speed = constants.FLYER_SPEED
 
     def switch_animation(self):
         if self.get_velocity().get_x() > 0:
@@ -33,6 +34,6 @@ class Flyer(Enemy):
         dx /= distance
         dy /= distance
 
-        dx *= (constants.FLYER_SPEED + self._extra_speed)
-        dy *= (constants.FLYER_SPEED + self._extra_speed)
+        dx *= (self._speed + self._extra_speed)
+        dy *= (self._speed + self._extra_speed)
         self.set_velocity(Point(dx, dy))

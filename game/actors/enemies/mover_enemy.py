@@ -18,9 +18,11 @@ class Mover(Enemy):
         self._going_down = False
         self.set_animation(constants.MOVER_ANIMATION)
         self.set_image(constants.MOVER_ANIMATION_1)
+        self._speed = constants.MOVER_SPEED
         self._extra_speed = extra_speed
         self.set_sound(constants.MOVER_DEATH_SOUND)
         self.set_volume(4.0)
+        
 
     def move(self, player):
         self._current_point = self._path[self._iteration]
@@ -32,8 +34,8 @@ class Mover(Enemy):
             dx /= distance
             dy /= distance
 
-        dx *= (constants.MOVER_SPEED + self._extra_speed)
-        dy *= (constants.MOVER_SPEED + self._extra_speed)
+        dx *= (self._speed + self._extra_speed)
+        dy *= (self._speed + self._extra_speed)
 
         self.set_velocity(Point(dx, dy))
 

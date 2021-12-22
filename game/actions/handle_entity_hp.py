@@ -32,7 +32,7 @@ class HandleEntityHP(Action):
             elif random == 2:
                 cast["pickups"].append(WeaponPickup(enemy.get_position()))
             enemies.remove(enemy)
-            self._audio_service.play_sound(enemy.get_sound(), enemy.get_volume())
+            self._audio_service.play_sound(enemy.get_sound(), enemy.get_volume(), enemy.get_pitch())
             enemies_defeated = int(enemies_defeated_text.get_text())
             enemies_defeated += 1
             enemies_defeated_text.set_text(str(enemies_defeated))

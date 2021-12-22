@@ -52,6 +52,7 @@ class HandleRoomTravellingAction(Action):
                     door = randint(1, 3)
                 self._doors[door] = "door"
             self._generate_room_action.execute(cast, self._doors)
+            self._generate_room_action.spawn_strong_enemies(cast)
             self._randomize_colors(cast)
             self._door_closed = False
             player.set_position(Point(x, y))

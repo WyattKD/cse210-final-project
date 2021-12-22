@@ -33,6 +33,8 @@ class Gun(Actor):
             stats = [15, 15, raylibpy.BLUE, 5, 0.02, 1, 1, 800, 0.2, 0, constants.BUBBLE_BULLET, constants.BUBBLE_SOUND, 0.7]
         elif gun == "laser":
             stats = [15, 15, raylibpy.RED, 20, 0.001, 3, 0, 500, 0.03, 0.6, constants.LASER_BULLET, constants.LASER_SOUND, 0.7]
+        elif gun == "enemy":
+            stats = [24, 24, raylibpy.RED, 10, 0, 1, 0, 1000, 1, 0, constants.ENEMY_BULLET, constants.SHOOT_SOUND, 0.7]
 
         # [width, height, color, bullet speed, shot speed, bullets, spread, range, damage, bullet delay, image, sound, volume]
         self._bullet_width = stats[0]

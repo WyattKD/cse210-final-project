@@ -46,9 +46,17 @@ FLYER_SPEED = 2
 FLYER_WIDTH = 60
 FLYER_HEIGHT = 51
 
+WARLOCK_HEIGHT = 120
+WARLOCK_WIDTH = 84
+WARLOCK_COLOR = raylibpy.RED
+HARMLESS_COLOR = raylibpy.BEIGE
+
 MOVER_SPEED = 4
 MOVER_WIDTH = 100
 MOVER_HEIGHT = 100
+
+JUGGERNAUT_TINT = raylibpy.YELLOW
+SPEEDER_TINT = raylibpy.PURPLE
 
 COIN_WIDTH = 20
 COIN_HEIGHT = 20
@@ -161,6 +169,35 @@ WALKER_ANIMATIONF_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-pr
 WALKER_ANIMATIONF_4 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/walkerf4.png")
 WALKER_ANIMATIONF = [WALKER_ANIMATIONF_1, WALKER_ANIMATIONF_2, WALKER_ANIMATIONF_3, WALKER_ANIMATIONF_4]
 
+WARLOCK_ANIMATION_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock1.png")
+WARLOCK_ANIMATION_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock2.png")
+WARLOCK_ANIMATION_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock3.png")
+WARLOCK_ANIMATION_4 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock4.png")
+WARLOCK_ANIMATION_5 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock5.png")
+WARLOCK_ANIMATION_6 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock6.png")
+WARLOCK_ANIMATION_7 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock7.png")
+WARLOCK_ANIMATION_8 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock8.png")
+WARLOCK_ANIMATION_9 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock9.png")
+WARLOCK_ANIMATION_10 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock10.png")
+WARLOCK_ANIMATION_11 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock11.png")
+WARLOCK_ANIMATION_12 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock12.png")
+WARLOCK_ANIMATION_13 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock13.png")
+WARLOCK_ANIMATION_14 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock14.png")
+WARLOCK_ANIMATION_15 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock15.png")
+WARLOCK_ANIMATION_16 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock16.png")
+WARLOCK_ANIMATION_17 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock17.png")
+WARLOCK_ANIMATION = [WARLOCK_ANIMATION_1, WARLOCK_ANIMATION_2, WARLOCK_ANIMATION_3, WARLOCK_ANIMATION_4, WARLOCK_ANIMATION_5, WARLOCK_ANIMATION_6, WARLOCK_ANIMATION_7, WARLOCK_ANIMATION_8, WARLOCK_ANIMATION_9, WARLOCK_ANIMATION_10, WARLOCK_ANIMATION_11, WARLOCK_ANIMATION_12, WARLOCK_ANIMATION_13, WARLOCK_ANIMATION_14, WARLOCK_ANIMATION_15, WARLOCK_ANIMATION_16, WARLOCK_ANIMATION_17]
+
+WARLOCK_ANIMATIONF_1 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf1.png")
+WARLOCK_ANIMATIONF_2 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf2.png")
+WARLOCK_ANIMATIONF_3 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf3.png")
+WARLOCK_ANIMATIONF_4 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf4.png")
+WARLOCK_ANIMATIONF_5 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf5.png")
+WARLOCK_ANIMATIONF_6 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf6.png")
+WARLOCK_ANIMATIONF_7 = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlockf7.png")
+WARLOCK_ANIMATIONF = [WARLOCK_ANIMATIONF_1, WARLOCK_ANIMATIONF_2, WARLOCK_ANIMATIONF_3, WARLOCK_ANIMATIONF_4, WARLOCK_ANIMATIONF_5, WARLOCK_ANIMATIONF_6, WARLOCK_ANIMATIONF_7]
+
+
 PISTOL_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/pistol_bullet.png")
 SNIPER_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sniper_bullet.png")
 SHOTGUN_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/shotgun_bullet.png")
@@ -168,6 +205,7 @@ RIFLE_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//
 BURST_RIFLE_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/burst_rifle_bullet.png")
 BUBBLE_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/bubble_bullet.png")
 LASER_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/laser_bullet.png")
+ENEMY_BULLET = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/warlock_bullet.png")
 
 PISTOL_PICKUP = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/pistol_pickup.png")
 DUAL_PISTOL_PICKUP = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/dual_pistol_pickup.png")
@@ -231,6 +269,9 @@ JUMP_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//as
 ENEMY_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death.wav")
 MOVER_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death2.wav")
 WALKER_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death3.wav")
+WARLOCK_DEATH_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_death4.wav")
+WARLOCK_SHOT_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/enemy_shot1.wav")
+WARLOCK_TELEPORT_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/warlock_tp.wav")
 
 SHOOT_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot.wav")
 LASER_SOUND = os.path.join(os.getcwd(), "cse210-programs/cse210-final-project//assets/sounds/shoot2.wav")

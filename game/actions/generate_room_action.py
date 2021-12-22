@@ -7,7 +7,8 @@ from game.actors.tutorial import Tutorial
 from game.actors.enemies.walker_enemy import Walker
 from game.actors.enemies.flyer_enemy import Flyer
 from game.actors.enemies.mover_enemy import Mover
-from random import randint
+from game.actors.enemies.warlock import Warlock
+from random import randint, choice
 from math import sqrt
 from game.actors.tutorial import Tutorial
 
@@ -726,6 +727,36 @@ class GenerateRoomAction(Action):
         for _ in range(amount):
             x, y = self._spawn_randomly(cast, area)
             cast["enemies"].append(Flyer(x, y, bonus_hp, bonus_speed))
+
+    def spawn_strong_enemies(self, cast):
+        enemies = cast["enemies"]
+        rooms_cleared_text = cast["UI"][5]
+        multiplier = int(rooms_cleared_text.get_text()) // 3
+        enemies_chosen = []
+        if 1 + multiplier > len(enemies):
+            multiplier = len(enemies) - 1
+        for i in range(1 + multiplier):
+            random = randint(1,4)
+            if random == 1:
+                enemy = choice(enemies)
+                while enemy in enemies_chosen:
+                    enemy = choice(enemies)
+                enemies_chosen.append(enemy)
+                if randint(1, 2) == 1:
+                    enemy.set_hp(enemy.get_hp() * 2)
+                    enemy.set_speed(enemy.get_speed()/2)
+                    enemy.set_tint(constants.JUGGERNAUT_TINT)
+                    enemy.set_pitch(0.8)
+                else:
+                    enemy.set_hp(enemy.get_hp()/2)
+                    enemy.set_speed(enemy.get_speed() * 2)
+                    enemy.set_tint(constants.SPEEDER_TINT)
+                    enemy.set_pitch(1.2)
+        random = randint(1,4)
+        while random == 1:
+            bonus_hp, bonus_speed = self._determine_difficulty(cast)
+            cast["enemies"].append(Warlock(constants.MAX_X/2, constants.MAX_Y/2, bonus_hp, bonus_speed))
+            random = randint(1,4)
 
     def _default_walls(self, cast):
         # Top left segment

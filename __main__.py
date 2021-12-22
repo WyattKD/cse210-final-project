@@ -25,13 +25,14 @@ from game.actors.background import Background
 from game.actors.hp_bar import HpBar
 from game.actors.text import Text
 from game.actors.tutorial import Tutorial
+from game.actors.enemies.warlock import Warlock
 
 from game.actions.control_actors_action import ControlActorsAction
 from game.actions.handle_collisions_action import HandleCollisionsAction
 from game.actions.move_actors_action import MoveActorsAction
 from game.actions.handle_off_screen_action import HandleOffScreenAction
 from game.actions.handle_entity_hp import HandleEntityHP
-from game.actions.handle_enemy_movement import HandleEnemyMovement
+from game.actions.handle_enemy_actions import HandleEnemyActions
 from game.actions.handle_bullet_timeout_action import HandleBulletTimeoutAction
 from game.actions.generate_room_action import GenerateRoomAction
 from game.actions.prevent_enemy_overlap_action import PreventEnemyOverlapAction
@@ -58,13 +59,13 @@ def main():
 
     gun = Gun()
     gun.set_gun_type(random.choice(["pistol", "rifle", "laser", "shotgun", "sniper", "burst rifle", "minigun", "machinegun", "dual pistol", "bubble"]))
-    #gun.set_gun_type("rifle")
+    #gun.set_gun_type("minigun")
     cast["guns"] = [gun]
-    cast["bullets"] = []
     cast["coins"] = []
     cast["walls"] = []
     cast["platforms"] = []
     cast["enemies"] = []
+    cast["bullets"] = []
     cast["pickups"] = []
     cast["gameover_card"] = []
     hp_bar = HpBar()
@@ -88,6 +89,7 @@ def main():
     generate_room_action.generate_room_1(cast)
     
     
+    
     # Create the script {key: tag, value: list}
     script = {}
 
@@ -102,7 +104,7 @@ def main():
     handle_collisions_action = HandleCollisionsAction(physics_service, audio_service)
     handle_off_screen_action = HandleOffScreenAction()
     handle_entity_hp = HandleEntityHP(audio_service)
-    handle_enemy_movement = HandleEnemyMovement()
+    handle_enemy_movement = HandleEnemyActions(audio_service)
     handle_bullet_timeout_action = HandleBulletTimeoutAction()
     prevent_enemy_overlap_action = PreventEnemyOverlapAction(physics_service)
     handle_coins_action = HandleCoinsAction()

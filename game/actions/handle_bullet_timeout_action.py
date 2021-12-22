@@ -21,7 +21,7 @@ class HandleBulletTimeoutAction(Action):
             x = bullet.get_position().get_x() - spawnpoint.get_x()
             y = bullet.get_position().get_y() - spawnpoint.get_y()
             distance = sqrt(x*x + y*y)
-            if  abs(distance) >= bullet_life:
+            if  abs(distance) >= bullet_life and bullet.get_owner() == "player":
                 bullets_to_remove.append(bullet)
         for bullet in bullets_to_remove:
             bullets.remove(bullet)

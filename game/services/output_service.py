@@ -75,8 +75,10 @@ class OutputService:
 
         if actor.has_image():
             image = actor.get_image()
-            if (actor.get_color() == constants.PLAYER_COLOR or actor.get_color() == constants.PLAYER_INV_COLOR):
+            if actor.get_color() == constants.PLAYER_COLOR or actor.get_color() == constants.PLAYER_INV_COLOR:
                 self.draw_image(x - width / 2, y, image, actor.get_tint())
+            elif actor.get_animation == constants.WARLOCK_ANIMATION or actor.get_animation == constants.WARLOCK_ANIMATIONF:
+                self.draw_image(x + width / 2, y, image, actor.get_tint())
             else:
                 self.draw_image(x, y, image, actor.get_tint())
 

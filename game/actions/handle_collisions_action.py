@@ -27,6 +27,7 @@ class HandleCollisionsAction(Action):
         self._handle_player_coin(cast)
         self._handle_coin_ground(cast)
         self._handle_pickups_ground(cast)
+        self._handle_bullet_player(cast)
 
     def _handle_enemy_wall(self, cast):
         enemies = cast["enemies"]
@@ -102,7 +103,7 @@ class HandleCollisionsAction(Action):
         bullets_to_remove = []
         for bullet in cast["bullets"]:
             for wall in cast["walls"]:
-                if self._physics_service.is_collision(bullet, wall):
+                if self._physics_service.is_collision(bullet, wall) and bullet.has_collision():
                     bullets_to_remove.append(bullet)
         for bullet in bullets_to_remove:
             if bullet in cast["bullets"]:
@@ -115,7 +116,7 @@ class HandleCollisionsAction(Action):
         bullets_to_remove = []
         for bullet in cast["bullets"]:
             for enemy in cast ["enemies"]:
-                if self._physics_service.is_collision(bullet, enemy):
+                if self._physics_service.is_collision(bullet, enemy) and bullet.get_owner() == "player" and enemy.get_color() != constants.HARMLESS_COLOR:
                     enemy.take_damage(damage)
                     if round(time(), 2) - self._damage_time > 0.15:
                         self._audio_service.play_sound(constants.ENEMY_DAMAGE_SOUND, 0.5)
@@ -125,11 +126,22 @@ class HandleCollisionsAction(Action):
             if bullet in cast["bullets"]:
                 cast["bullets"].remove(bullet)
 
+    def _handle_bullet_player(self, cast):
+        player = cast["players"][0]
+        bullets_to_remove = []
+        for bullet in cast["bullets"]:
+            if self._physics_service.is_collision(bullet, player) and bullet.get_owner() == "enemy":
+                player.take_damage()
+                bullets_to_remove.append(bullet)
+        for bullet in bullets_to_remove:
+            if bullet in cast["bullets"]:
+                cast["bullets"].remove(bullet)
+
     def _handle_enemy_player(self, cast):
         player = cast["players"][0]
         enemies = cast["enemies"]
         for enemy in enemies:
-            if self._physics_service.is_collision(player, enemy):
+            if self._physics_service.is_collision(player, enemy) and enemy.get_color() != constants.HARMLESS_COLOR:
                 player.take_damage()
                     
 

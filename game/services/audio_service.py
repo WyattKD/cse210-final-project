@@ -17,18 +17,29 @@ class AudioService:
         """
         self._sounds = {}
         
-    def play_sound(self, filename, volume=1.0):
+    def play_sound(self, filename, volume=1.0, pitch=1.0):
         """
         Plays the sound file provided. Make sure to call start_audio before this is called.
         """
-        if filename not in self._sounds.keys():
-            loaded = raylibpy.load_sound(filename)
-            self._sounds[filename] = loaded
+        
+        if pitch != 1.0:
+            if filename + str(pitch) not in self._sounds.keys():
+                loaded = raylibpy.load_sound(filename)
+                self._sounds[filename + str(pitch)] = loaded
+                raylibpy.set_sound_pitch(self._sounds[filename + str(pitch)], pitch)
+        else:
+            if filename not in self._sounds.keys():
+                loaded = raylibpy.load_sound(filename)
+                self._sounds[filename] = loaded
 
-        sound = self._sounds[filename]
-        raylibpy.set_sound_volume(sound, volume)
+        if pitch != 1.0:
+            sound = self._sounds[filename + str(pitch)]
+        else:
+            sound = self._sounds[filename]
+        raylibpy.set_sound_volume(sound, volume)  
         raylibpy.play_sound(sound)
 
+        
     def stop_sound(self, filename):
         sound = self._sounds[filename]
         raylibpy.stop_sound(sound)
